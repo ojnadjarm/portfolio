@@ -2,7 +2,7 @@ import { esc, html } from './h.js';
 
 function rows(list) {
   return list.map(function (r) {
-    return '<div class="krow"><span class="k">' + esc(r.k) + '</span>' +
+    return '<div class="krow tgt" tabindex="0"><span class="k">' + esc(r.k) + '</span>' +
       '<span class="t' + (r.t === 'HOT' ? ' hot' : '') + '">' + esc(r.t) + '</span>' +
       '<p>' + esc(r.p) + '</p></div>';
   }).join('');

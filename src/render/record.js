@@ -25,7 +25,7 @@ export default function record() {
       '<span class="yr">' + esc(s.yr) + '</span></div>';
   }).join('');
   var links = d.links.map(function (l) {
-    return '<a href="' + esc(linkHref(l.href)) + '"><span>' + esc(linkLabel(l)) + '</span>' +
+    return '<a class="tgt" href="' + esc(linkHref(l.href)) + '" target="_blank" rel="noopener"><span>' + esc(linkLabel(l)) + '</span>' +
       '<b>' + esc(l.text) + '</b></a>';
   }).join('');
   return '<div class="pn">' +

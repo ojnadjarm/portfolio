@@ -30,7 +30,8 @@ var mq = matchMedia('(prefers-reduced-motion: reduce)');
 var reduce = function(){ return mq.matches; };
 
 var ORDER = ['s-identity','s-knowledge','s-projects','s-record'];
-var NAME  = {'s-identity':'IDENTITY','s-knowledge':'KNOWLEDGE','s-projects':'PROJECTS','s-record':'RECORD','s-dark-eye':'DARK EYE'};
+var NAME  = {'s-identity':'IDENTITY','s-knowledge':'KNOWLEDGE','s-projects':'PROJECTS','s-record':'RECORD'};
+document.querySelectorAll('.screen[data-dossier]').forEach(function(sc){ NAME[sc.id] = sc.dataset.name; });
 
 var stage   = document.getElementById('stage');
 var stateEl = document.getElementById('state');
@@ -43,10 +44,12 @@ var ret     = document.getElementById('ret');
 
 var current = 's-identity';
 var busy    = false;
+var pending = null;    /* the last navigation asked for while busy */
 var fromCard = null;   /* the card the dossier was entered from */
 
 /* ---- index panels + rows once, so CSS stagger has something to read ---- */
 document.querySelectorAll('.screen').forEach(function(sc){
+  sc.tabIndex = -1;
   var i = 0;
   sc.querySelectorAll('.pn').forEach(function(p){ p.style.setProperty('--i', i++); });
   sc.querySelectorAll('.stream').forEach(function(s){
@@ -97,7 +100,17 @@ window.addEventListener('resize', function(){
   if (retOn && document.activeElement && document.activeElement.classList.contains('tgt'))
     moveRet(document.activeElement);
 });
-stage.addEventListener('scroll', hideRet, true);
+stage.addEventListener('scroll', function(){
+  updateCue();
+  if (retOn) moveRet(document.activeElement);
+}, true);
+
+/* ---- scroll cue: shown while the live screen has more below the fold ---- */
+function updateCue(){
+  var sc = document.getElementById(current);
+  document.body.classList.toggle('more', sc.scrollHeight - sc.clientHeight - sc.scrollTop > 8);
+}
+window.addEventListener('resize', updateCue);
 
 /* ---- chrome readouts ---- */
 function setRail(st, wait, from, to){
@@ -105,13 +118,15 @@ function setRail(st, wait, from, to){
   stateEl.classList.toggle('wait', !!wait);
   if (from) routeEl.textContent = NAME[from] + ' → ' + NAME[to];
   var n = ORDER.indexOf(current);
-  scrEl.textContent = n >= 0 ? ('SCREEN 0' + (n+1) + '/04') : 'DOSSIER 01';
+  scrEl.textContent = n >= 0 ? ('SCREEN 0' + (n+1) + '/04')
+    : 'DOSSIER ' + String(document.getElementById(current).dataset.dossier).padStart(2, '0');
 }
 function markDock(){
   Array.prototype.forEach.call(dock.querySelectorAll('[data-go]'), function(b){
     b.setAttribute('aria-current', b.dataset.go === current ? 'true' : 'false');
   });
   backBtn.hidden = (ORDER.indexOf(current) >= 0);
+  document.body.classList.toggle('in-dossier', !backBtn.hidden);
 }
 
 /* ================= THE TRANSITION =================
@@ -124,8 +139,8 @@ function markDock(){
 var timers = [];
 function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
 
-function go(to, mode, dir){
-  if (busy || to === current) return;
+function go(to, mode, dir, focusEl){
+  if (to === current) return;
   var from = current, fromEl = document.getElementById(from), toEl = document.getElementById(to);
   if (!toEl) return;
 
@@ -139,13 +154,14 @@ function go(to, mode, dir){
     current = to; document.body.dataset.screen = to;
     setRail('READY', false, from, to); markDock();
     if (window.__lat) window.__lat.snap(to);
-    focusFirst(toEl);
+    land(toEl, focusEl);
     return;
   }
 
   busy = true;
   hideRet();
   document.body.classList.add('busy');
+  document.body.classList.remove('more');
   if (window.__lat) window.__lat.go(to, mode);
   document.body.classList.toggle('dive', mode !== 'lateral');
   document.body.classList.toggle('rev', dir === 'l' || mode === 'surface');
@@ -191,31 +207,70 @@ function go(to, mode, dir){
     document.body.classList.remove('dive','rev');
     setRail('READY', false, from, to);
     busy = false;
-    focusFirst(toEl);
+    if (pending) { var p = pending; pending = null; p(); if (busy) return; }
+    land(toEl, focusEl);
   }, total));
 }
 
-function focusFirst(sc){
-  var t = sc.querySelector('.tgt');
-  if (t && document.activeElement !== document.body) { try { t.focus({preventScroll:true}); } catch(e){ t.focus(); } }
+function scrollBehavior(){ return reduce() ? 'auto' : 'smooth'; }
+function focusOn(el){
+  try { el.focus({preventScroll:true}); } catch(e){ el.focus(); }
+  if (el.classList.contains('tgt')) el.scrollIntoView({block:'nearest', behavior: scrollBehavior()});
+}
+/* Focus always lands somewhere useful: the given element, the first target, or the screen itself. */
+function land(sc, el){
+  focusOn(el || sc.querySelector('.tgt') || sc);
+  updateCue();
 }
 
-/* ---- navigation intents ---- */
+/* ---- navigation intents: while a transition plays, the last one asked for is kept ---- */
+function intent(fn){ if (busy) pending = fn; else fn(); }
 function goto(to){
-  var a = ORDER.indexOf(current), b = ORDER.indexOf(to);
-  if (b < 0) return;
-  if (a < 0) { go(to, 'surface'); return; }          /* leaving a dossier sideways */
-  go(to, 'lateral', b < a ? 'l' : 'r');
+  intent(function(){
+    var a = ORDER.indexOf(current), b = ORDER.indexOf(to);
+    if (b < 0) return;
+    if (a < 0) { go(to, 'surface'); return; }          /* leaving a dossier sideways */
+    go(to, 'lateral', b < a ? 'l' : 'r');
+  });
 }
-function dive(id, card){ fromCard = card || null; go(id, 'dive'); }
+function dive(id, card){ intent(function(){ fromCard = card || null; go(id, 'dive'); }); }
 function surface(){
-  if (ORDER.indexOf(current) >= 0) return;
-  go('s-projects', 'surface');
-  if (fromCard) {
-    var c = fromCard;
-    setTimeout(function(){ try { c.focus({preventScroll:true}); } catch(e){ c.focus(); } },
-               reduce() ? 0 : 760);
-  }
+  intent(function(){
+    if (ORDER.indexOf(current) >= 0) return;
+    go('s-projects', 'surface', null, fromCard);
+  });
+}
+/* A target beside the highlighted one on the same row (multi-column layouts), or null. */
+function beside(sc, ae, d){
+  var r = ae.getBoundingClientRect(), best = null, gap = Infinity;
+  sc.querySelectorAll('.tgt').forEach(function(t){
+    if (t === ae) return;
+    var b = t.getBoundingClientRect(), cy = (b.top + b.bottom) / 2;
+    if (cy < r.top || cy > r.bottom) return;
+    var dx = d > 0 ? b.left - r.right : r.left - b.right;
+    if (dx >= 0 && dx < gap) { gap = dx; best = t; }
+  });
+  return best;
+}
+/* The nearest target below/above the highlighted one, preferring its own column, or null. */
+function under(sc, ae, d){
+  var r = ae.getBoundingClientRect(), best = null, bestLap = -Infinity, gap = Infinity;
+  sc.querySelectorAll('.tgt').forEach(function(t){
+    if (t === ae) return;
+    var b = t.getBoundingClientRect();
+    var dy = d > 0 ? b.top - r.bottom : r.top - b.bottom;
+    if (dy < -1) return;
+    var lap = Math.min(r.right, b.right) - Math.max(r.left, b.left);
+    if (lap <= 0) lap = -Infinity;
+    /* overlaps within 2px count as the same column */
+    if (lap > bestLap + 2 || (lap > bestLap - 2 && dy < gap)) { bestLap = lap; gap = dy; best = t; }
+  });
+  return best;
+}
+function step(d){
+  if (ORDER.indexOf(current) < 0) { if (d < 0) surface(); return; }
+  var i = ORDER.indexOf(current) + d;
+  if (i >= 0 && i < ORDER.length) goto(ORDER[i]);
 }
 
 /* ---- pointer ---- */
@@ -224,57 +279,92 @@ dock.addEventListener('click', function(e){
   if (b === backBtn) surface(); else goto(b.dataset.go);
 });
 stage.addEventListener('click', function(e){
-  var c = e.target.closest('[data-open]'); if (!c) return;
-  dive(c.dataset.open, c);
+  var c = e.target.closest('[data-open]');
+  if (c) dive(c.dataset.open, c);
 });
 
+/* ---- touch: a horizontal swipe on the stage is ← / → ---- */
+var tx = null, ty = 0;
+stage.addEventListener('touchstart', function(e){
+  var t = e.changedTouches[0]; tx = t.clientX; ty = t.clientY;
+}, {passive:true});
+stage.addEventListener('touchend', function(e){
+  if (tx === null) return;
+  var t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+  tx = null;
+  if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy)) return;
+  step(dx < 0 ? 1 : -1);
+}, {passive:true});
+
 /* ---- keyboard ---- */
+function pageStep(){ return stage.clientHeight * 0.6; }
+function scrollScreen(sc, dy){ sc.scrollBy({top: dy, behavior: scrollBehavior()}); }
+function scrollTop(sc, y){ sc.scrollTo({top: y, behavior: scrollBehavior()}); }
+
 document.addEventListener('keydown', function(e){
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  var k = e.key;
+  var k = e.key, sc = document.getElementById(current), ae = document.activeElement;
+  var onTgt = !!(ae && ae.classList && ae.classList.contains('tgt') && sc.contains(ae));
 
   if (k === 'Escape' || k === 'Backspace') {
-    if (ORDER.indexOf(current) < 0) { e.preventDefault(); surface(); }
+    e.preventDefault();
+    if (ORDER.indexOf(current) < 0) surface();
+    else if (onTgt) { focusOn(sc); scrollTop(sc, 0); }
+    else if (current !== 's-identity') goto('s-identity');
+    else scrollTop(sc, 0);
     return;
   }
   if (k === 'ArrowLeft' || k === 'ArrowRight') {
     e.preventDefault();
-    if (ORDER.indexOf(current) < 0) { if (k === 'ArrowLeft') surface(); return; }
-    var i = ORDER.indexOf(current) + (k === 'ArrowRight' ? 1 : -1);
-    if (i >= 0 && i < ORDER.length) goto(ORDER[i]);
+    var d = k === 'ArrowRight' ? 1 : -1, side = onTgt && beside(sc, ae, d);
+    if (side) focusOn(side); else step(d);
     return;
   }
   if (k === 'ArrowUp' || k === 'ArrowDown') {
-    var sc = document.getElementById(current);
-    var list = Array.prototype.slice.call(sc.querySelectorAll('.tgt'));
-    if (!list.length) return;
     e.preventDefault();
-    var at = list.indexOf(document.activeElement);
-    var n  = (k === 'ArrowDown') ? (at + 1) : (at - 1 + list.length);
-    if (at < 0) n = 0;
-    var el = list[n % list.length];
-    el.focus();
-    el.scrollIntoView({block:'nearest', behavior: reduce() ? 'auto' : 'smooth'});
+    var down = k === 'ArrowDown';
+    var list = Array.prototype.slice.call(sc.querySelectorAll('.tgt'));
+    var n = -1;
+    if (onTgt) n = list.indexOf(under(sc, ae, down ? 1 : -1));
+    else if (down) {   /* first target not already scrolled past */
+      var top = stage.getBoundingClientRect().top;
+      n = 0;
+      while (n < list.length && list[n].getBoundingClientRect().bottom < top) n++;
+    }
+    if (n >= 0 && n < list.length) focusOn(list[n]);
+    else scrollScreen(sc, down ? pageStep() : -pageStep());
     return;
+  }
+  if (k === 'Home' || k === 'End') {
+    e.preventDefault();
+    scrollTop(sc, k === 'Home' ? 0 : sc.scrollHeight);
+    return;
+  }
+  if (k === 'PageDown' || k === 'PageUp' || (k === ' ' && !(ae && ae.tagName === 'BUTTON'))) {
+    e.preventDefault();
+    var up = k === 'PageUp' || (k === ' ' && e.shiftKey);
+    scrollScreen(sc, up ? -pageStep() : pageStep());
   }
 });
 
-/* ---- signal path: one hop lit at a time, only while the dossier is the live screen ---- */
+/* ---- signal path: one hop lit at a time, only while its dossier is the live screen ---- */
 (function(){
-  var hops = document.querySelectorAll('#path s');
-  var at = 0, id = null;
+  var hops = [], at = 0, id = null, live = null;
   function step(){
     hops.forEach(function(h,i){ h.classList.toggle('on', i === at); });
     at = (at + 1) % hops.length;
   }
   function sync(){
-    var live = (current === 's-dark-eye') && !reduce();
-    if (live && !id) { at = 0; step(); id = setInterval(step, 620); }
-    else if (!live && id) { clearInterval(id); id = null;
-      hops.forEach(function(h){ h.classList.add('on'); }); }
+    var sc = document.getElementById(current);
+    var want = (sc.dataset.dossier && !reduce()) ? sc : null;
+    if (want === live) return;
+    if (id) { clearInterval(id); id = null; hops.forEach(function(h){ h.classList.add('on'); }); }
+    live = want;
+    hops = want ? Array.prototype.slice.call(want.querySelectorAll('.path s')) : [];
+    if (hops.length) { at = 0; step(); id = setInterval(step, 620); }
   }
   setInterval(sync, 300);   /* cheap state poll, not per-frame work */
-  hops.forEach(function(h){ h.classList.add('on'); });
+  document.querySelectorAll('.path s').forEach(function(h){ h.classList.add('on'); });
   sync();
 })();
 
@@ -287,8 +377,9 @@ if (!reduce()) {
   boot.classList.add('in-r');
   requestAnimationFrame(function(){ boot.classList.add('landed'); });
 }
+updateCue(); setTimeout(updateCue, 900);
 mq.addEventListener && mq.addEventListener('change', function(){
-  clearTimers(); busy = false;
+  clearTimers(); busy = false; pending = null;
   document.body.classList.remove('busy','dive','rev');
 });
 })();

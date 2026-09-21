@@ -12,5 +12,6 @@
     { "href": "github", "label": "CODE", "text": "github.com/ojnadjarm" },
     { "href": "linkedin", "label": "CAREER", "text": "linkedin.com — oscar-nadjar-jaramillo" }
   ],
-  "hintHtml": "Move: <u>← →</u> screens  ·  <u>↑ ↓</u> targets  ·  <u>Enter</u> open  ·  <u>Esc</u> back"
+  "hintHtml": "Move: <u>← →</u> screens  ·  <u>↑ ↓</u> targets  ·  <u>Enter</u> open  ·  <u>Esc</u> back",
+  "hintTouch": "Swipe ← → screens  ·  Tap to open  ·  Back ◂"
 }

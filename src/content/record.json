@@ -5,8 +5,7 @@
     { "yr": "2016–2017", "h4": "Technician · DANE", "p": "National statistics office, Colombia." },
     { "yr": "2018-01 → 2018-11", "h4": "Technical Consultant · Open LMS", "p": "Bogotá. Entry into the LMS industry." },
     { "yr": "2018-12 → 2022-07", "h4": "Software Engineer · Open LMS", "p": "Bogotá. Moodle plugins, themes, integrations and upgrades; led mobile app development. Public commits from this period are in the commit search below." },
-    { "yr": "2020", "h4": "Remote", "p": "Working remotely since 2020. Not on the LinkedIn record; my own correction." },
-    { "yr": "2022-07 → 2023-09", "h4": "Software Engineer · Aprende Institute", "p": "Bogotá. LMS development and integrations." },
+    { "yr": "2022-07 → 2023-09", "h4": "Software Engineer · Aprende Institute", "p": "Remote. LMS development and integrations." },
     { "yr": "2023-10 → present", "h4": "Software Engineer · Moodle", "p": "Spain. Plugin and core work. Core changes are filed from a shared company account and committed by integrators, so nothing public carries my name: that part cannot be verified from outside." },
     { "yr": "2026", "h4": "The harness and the Eye", "p": "An agent fleet running on one machine on systemd timers, and the voice assistant front end for it. Both are public repositories under github.com/ojnadjarm." }
   ],

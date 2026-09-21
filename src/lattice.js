@@ -85,7 +85,7 @@ var REGION = {
   's-knowledge': {x: -13, y:  4,   z: -34,  ry:  0.16, rx:-0.05},
   's-projects' : {x:  12, y: -3,   z: -66,  ry: -0.16, rx: 0.05},
   's-record'   : {x: -6,  y: -6,   z: -98,  ry:  0.08, rx: 0.08},
-  's-dark-eye' : {x:  12, y: -3,   z: -84,  ry: -0.06, rx: 0.02}   /* deeper, same region as projects */
+  'dossier'    : {x:  12, y: -3,   z: -84,  ry: -0.06, rx: 0.02}   /* every dossier: deeper, same region as projects */
 };
 var target = Object.assign({}, REGION['s-identity']);
 var pos    = Object.assign({}, REGION['s-identity']);
@@ -94,7 +94,7 @@ var travel = 0;        /* extra camera ease while routing */
 
 window.__lat = {
   go: function(to, mode){
-    var r = REGION[to] || REGION['s-identity'];
+    var r = REGION[to] || REGION.dossier;
     target = Object.assign({}, r);
     pulse  = 1;
     travel = (mode === 'lateral') ? 1 : 1.5;
@@ -102,7 +102,7 @@ window.__lat = {
     wake();
   },
   snap: function(to){
-    var r = REGION[to] || REGION['s-identity'];
+    var r = REGION[to] || REGION.dossier;
     target = Object.assign({}, r); pos = Object.assign({}, r); pulse = 0;
     draw(0);
   }

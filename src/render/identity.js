@@ -15,7 +15,7 @@ export default function identity(d, ev) {
     '</div>';
   }).join('');
   var links = d.links.map(function (l) {
-    return '<a href="' + esc(ev[l.href]) + '"><span>' + esc(l.label) + '</span>' +
+    return '<a class="tgt" href="' + esc(ev[l.href]) + '" target="_blank" rel="noopener"><span>' + esc(l.label) + '</span>' +
       '<b>' + esc(l.text) + '</b></a>';
   }).join('');
   return '<div class="pn">' +
@@ -27,6 +27,6 @@ export default function identity(d, ev) {
   '<div class="pn">' +
     '<div class="split">' + cells + '</div>' +
     '<div class="links">' + links + '</div>' +
-    '<p class="hint">' + html(d.hintHtml) + '</p>' +
+    '<p class="hint"><span class="kb">' + html(d.hintHtml) + '</span><span class="tc">' + esc(d.hintTouch) + '</span></p>' +
   '</div>';
 }

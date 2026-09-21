@@ -29,7 +29,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-a
   opacity:.92;transition:opacity .5s ease}
 body[data-screen="s-knowledge"] #bg,
 body[data-screen="s-record"] #bg{opacity:.34}
-body[data-screen="s-dark-eye"] #bg{opacity:.7}
+body.in-dossier #bg{opacity:.7}
 .scrim{position:fixed;inset:0;z-index:2;pointer-events:none;
   background:
     radial-gradient(120% 90% at 8% 44%, rgba(7,7,7,.94) 0%, rgba(7,7,7,.8) 34%, rgba(7,7,7,.28) 68%, rgba(7,7,7,0) 100%),
@@ -200,6 +200,15 @@ body.busy .readout{opacity:1}
 :focus{outline:none}
 :focus-visible,.tgt:focus{outline:1px solid var(--acc);outline-offset:3px}
 .tgt:focus{background:var(--bg3)}
+.screen:focus{outline:none}
+
+/* ---- scroll cue: bottom fade + marker while the live screen has more below ---- */
+.cue{position:fixed;left:0;right:0;bottom:var(--dock);height:64px;z-index:12;pointer-events:none;
+  opacity:0;transition:opacity .25s ease;
+  background:linear-gradient(to bottom,transparent,rgba(7,7,7,.92))}
+.cue:after{content:"▾";position:absolute;left:50%;bottom:4px;transform:translateX(-50%);color:var(--acc-70);font-size:14px}
+body.more .cue{opacity:1}
+body.busy .cue{opacity:0}
 
 /* ================= content atoms ================= */
 .hdr{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
@@ -256,7 +265,6 @@ blockquote cite{display:block;margin-top:9px;font-style:normal;font-size:10px;
 .card p{color:var(--mid);font-size:12.5px;max-width:64ch}
 .card .open{margin-top:13px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);opacity:0;transform:translateX(-5px);transition:.22s var(--e-in)}
 .card:hover .open,.card:focus .open{opacity:1;transform:none}
-.card.static{cursor:default}
 .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:5px}
 .tags b{font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--dim);border:1px solid var(--line2);padding:3px 6px}
@@ -298,6 +306,12 @@ blockquote cite{display:block;margin-top:9px;font-style:normal;font-size:10px;
 .sig{margin-top:26px;font-size:9.5px;color:#454545;letter-spacing:.16em;text-transform:uppercase}
 .hint{margin-top:22px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 .hint u{text-decoration:none;color:var(--acc-70)}
+.hint .tc{display:none}
+@media (hover:none){
+  .hint .kb{display:none}
+  .hint .tc{display:inline}
+  .dock .back em{display:none}
+}
 
 /* ================= reduced motion: instant swaps ================= */
 @media (prefers-reduced-motion:reduce){

@@ -1,78 +1,378 @@
 {
-  "lead": "Select an entry to open its dossier. The flagship has a full record; the rest are summaries.",
+  "lead": "Select an entry to open its dossier. Every entry has one; the flagship has the full record.",
+  "hintTouch": "Tap a link to open it  ·  Back ◂ to return",
   "entries": [
     {
       "id": "card-dark-eye",
       "no": "ENTRY 01 — FLAGSHIP · DOSSIER AVAILABLE",
       "title": "THE DARK EYE",
-      "p": "A voice assistant with a face. A Rust overlay renders an eye on the living-room TV, a Node body routes intent, and a local worker runs speech recognition and answers in any of 53 voices. Audio never leaves the local network. Reachable from a phone.",
-      "tags": ["Rust", "Node", "Local ASR", "TTS · 53 voices", "Wayland", "systemd"],
+      "p": "A voice assistant with a face. A Rust overlay renders an eye on the screen, a Node body routes intent, and a local worker runs speech recognition and answers in any of 53 voices. Audio never leaves the local network. Reachable from a phone.",
+      "tags": [
+        "Rust",
+        "Node",
+        "Local ASR",
+        "TTS · 53 voices",
+        "Wayland",
+        "systemd"
+      ],
       "flagship": true,
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-dark-eye",
         "no": "[03·01]",
         "sub": "dossier · flagship",
-        "lead": "A local-first voice assistant with no chat window: an animated eye rendered on the television, a service on the machine, and speech recognition and synthesis that run locally.",
+        "lead": "A local-first voice assistant with no chat window: an animated eye rendered on the screen, a service on the machine, and speech recognition and synthesis that run locally.",
         "repo": "the-dark-eye",
         "cells": [
-          { "b": "Eye", "p": "A Rust overlay drawing an animated eye over the TV output. It is the whole interface: the eye animation carries the state while the body processes the request." },
-          { "b": "Body", "p": "A Node service that routes what was heard to the right agent, keeps state and holds the channels open. It runs as a systemd unit." },
-          { "b": "Ear & voice", "p": "A local worker running speech recognition on the machine, and synthesis with 53 selectable voices. No cloud round trip." },
-          { "b": "Reach", "p": "A page on the private network, so the same assistant is reachable from a phone off-site." }
+          {
+            "b": "Eye",
+            "p": "A Rust overlay drawing an animated eye on top of the screen. It is the whole interface: the eye animation carries the state while the body processes the request."
+          },
+          {
+            "b": "Body",
+            "p": "A Node service that routes what was heard to the right agent, keeps state and holds the channels open. It runs as a systemd unit."
+          },
+          {
+            "b": "Ear & voice",
+            "p": "A local worker running speech recognition on the machine, and synthesis with 53 selectable voices. No cloud round trip."
+          },
+          {
+            "b": "Reach",
+            "p": "A page on the private network, so the same assistant is reachable from a phone off-site."
+          }
         ],
-        "path": ["VOICE", "LOCAL ASR", "BODY", "AGENT", "TTS", "EYE + SPEAKER"],
+        "links": [
+          {
+            "k": "REPOSITORY:",
+            "label": "github.com/ojnadjarm/the-dark-eye",
+            "url": "https://github.com/ojnadjarm/the-dark-eye"
+          }
+        ],
+        "path": [
+          "VOICE",
+          "LOCAL ASR",
+          "BODY",
+          "AGENT",
+          "TTS",
+          "EYE + SPEAKER"
+        ],
         "riskEm": "Honest calibration —",
-        "risk": "the model was not the hard part. The work was latency, a Wayland overlay that stays on top of a television output, and keeping the services running unattended under systemd.",
-        "hintHtml": "Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+        "risk": "the model was not the hard part. The work was latency, a Wayland overlay that stays on top of the screen, and keeping the services running unattended under systemd.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
+    },
+    {
+      "id": "card-aicharts",
+      "no": "ENTRY 02",
+      "title": "AI CHARTS",
+      "p": "My current Moodle plugin. Ask for a chart or a report in plain language and it turns the request into a validated SQL query and a chart definition, shows a preview and saves it to a dashboard under Site administration → Reports → AI charts. The wizard goes kind → data → chart, with the assistant optional at every step; saved charts run live or on a schedule, and scheduled results can be emailed with a CSV attached.",
+      "repo": "local_aicharts",
+      "tags": [
+        "PHP",
+        "Moodle",
+        "SQL",
+        "OpenAI-compatible provider",
+        "PHPUnit · Behat"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-aicharts",
+        "no": "[03·02]",
+        "sub": "dossier · public repository",
+        "lead": "A Moodle local plugin. A request in plain language becomes a validated SQL query and a chart definition; the chart is previewed, saved to a dashboard and run live or on a schedule.",
+        "repo": "local_aicharts",
+        "cells": [
+          {
+            "b": "Wizard",
+            "p": "Five steps — kind, data, chart, schedule, review — each a page with a progress strip. The draft lives in the session under a token in the URL, so a reload never resubmits. The assistant is optional at every step; a series can be typed by hand with no prompt at all."
+          },
+          {
+            "b": "Query safety",
+            "p": "Generated SQL is validated before it runs: SELECT only, a deny list of keywords, table placeholders checked against an allow list, named parameters only. A rejected answer goes back to the provider once with the reason, every attempt is logged, and the query runs with a row limit and a statement timeout."
+          },
+          {
+            "b": "Provider",
+            "p": "Any OpenAI-compatible chat completions endpoint, or an offline stub that answers from fixtures with no network call. The provider receives table names and the request text, never row data. The plugin never writes to site tables."
+          },
+          {
+            "b": "Runs & email",
+            "p": "Live charts run when the dashboard loads; scheduled charts run daily, weekly or monthly through an ad hoc task and store each run as CSV. Recipients get the chart as an inline image with the CSV attached. Moodle 5.1 or later."
+          }
+        ],
+        "links": [
+          {
+            "k": "REPOSITORY:",
+            "label": "github.com/ojnadjarm/local_aicharts",
+            "url": "https://github.com/ojnadjarm/local_aicharts"
+          },
+          {
+            "k": "THE WHOLE FEATURE, DOCUMENTED:",
+            "label": "README.md",
+            "url": "https://github.com/ojnadjarm/local_aicharts/blob/main/README.md"
+          }
+        ],
+        "path": [
+          "REQUEST",
+          "PROVIDER",
+          "SQL VALIDATION",
+          "QUERY",
+          "CHART",
+          "DASHBOARD"
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "the provider is the easy part. The work is in what the generated SQL is allowed to do — the allow list, the deny list, the row limit, the timeout — and in the PHPUnit and Behat suites that pin it down.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
       }
     },
     {
       "id": "card-moodle-harness",
-      "no": "ENTRY 02",
+      "no": "ENTRY 03",
       "title": "MOODLE HARNESS",
       "p": "The development harness I use on every Moodle job: coding guidelines encoded as checks, CI that mirrors the pipeline, plugin scaffolding from a short recipe, and one command to build a versioned Moodle environment.",
       "repo": "moodle-harness",
-      "tags": ["PHP", "Docker", "phpcs", "PHPUnit", "CI"]
+      "tags": [
+        "PHP",
+        "Docker",
+        "phpcs",
+        "PHPUnit",
+        "CI"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-moodle-harness",
+        "no": "[03·03]",
+        "sub": "dossier · public repository",
+        "lead": "The development harness I use on every Moodle job, packaged for Claude Code: guidelines loaded into context, a CI command, a plugin scaffolder, a local mirror of the developer docs and a Docker environment per Moodle version.",
+        "repo": "moodle-harness",
+        "cells": [
+          {
+            "b": "Guidelines",
+            "p": "A session hook detects a Moodle project and loads the coding guidelines, the known gotchas and the full coding style into context, with a one-line banner saying it did."
+          },
+          {
+            "b": "CI",
+            "p": "One command runs the code checker on the host and PHPUnit inside the discovered Moodle container. The container and the dirroot are found by mount-matching, so nothing is hardcoded."
+          },
+          {
+            "b": "Scaffolding & docs",
+            "p": "A plugin skeleton is generated from a short YAML recipe by a deterministic Python generator, and the moodledev.io developer docs are mirrored locally with ranked search."
+          },
+          {
+            "b": "Environments",
+            "p": "One Docker compose project per Moodle version, from 4.1 to 5.2, sharing a proxy, mailhog and selenium. PHP and database versions come from the release notes."
+          }
+        ],
+        "links": [
+          {
+            "k": "REPOSITORY:",
+            "label": "github.com/ojnadjarm/moodle-harness",
+            "url": "https://github.com/ojnadjarm/moodle-harness"
+          },
+          {
+            "k": "THE HOOKS:",
+            "label": "hooks/",
+            "url": "https://github.com/ojnadjarm/moodle-harness/tree/master/hooks"
+          }
+        ],
+        "path": [
+          "SESSION START",
+          "GUIDELINES",
+          "DOCS",
+          "SKELETON",
+          "CODE",
+          "CI"
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "it is shell, Python and Markdown, not a framework. Its value is that the same rules and the same checks run on every job, on any machine, after one install script.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
     },
     {
       "id": "card-moodle-work",
-      "no": "ENTRY 03",
+      "no": "ENTRY 04",
       "title": "MOODLE, AT WORK",
       "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. I filed the core issues in the tracker from a shared company account and the integrators committed the patches, so there is no public attribution and that part cannot be verified from outside. The public commit figure below can be, and is dated because it moves.",
-      "tags": ["PHP", "PostgreSQL", "Behat", "Tracker"],
-      "statHtml": "PUBLIC <u>{commits}</u> · CHECK IT: <u>github.com/search — author-name \"Oscar Nadjar\"</u>"
+      "tags": [
+        "PHP",
+        "PostgreSQL",
+        "Behat",
+        "Tracker"
+      ],
+      "statHtml": "PUBLIC <u>{commits}</u> · CHECK IT: <u>github.com/search — author-name \"Oscar Nadjar\"</u>",
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-moodle-work",
+        "no": "[03·04]",
+        "sub": "dossier · no public repository",
+        "lead": "Institutional Moodle work: plugins, themes, integrations, upgrades and patches to Moodle core. There is no public repository for this entry.",
+        "cells": [
+          {
+            "b": "What can be verified",
+            "p": "The public commit figure: {commits}. It is what the linked GitHub search returns, and it is dated because it moves."
+          },
+          {
+            "b": "What cannot",
+            "p": "The core issues were filed in the Moodle tracker from a shared company account and the patches were committed by the integrators, so there is no public attribution. That part cannot be verified from outside, and I list no numbers for it."
+          },
+          {
+            "b": "Scope",
+            "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. PHP, PostgreSQL, Behat and the tracker workflow."
+          }
+        ],
+        "links": [
+          {
+            "k": "PUBLIC COMMITS — GITHUB SEARCH:",
+            "label": "author-name \"Oscar Nadjar\"",
+            "url": "{commitsUrl}"
+          }
+        ],
+        "path": [
+          "TRACKER ISSUE",
+          "PATCH",
+          "PEER REVIEW",
+          "INTEGRATION",
+          "RELEASE"
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "this is most of the working record and the least verifiable part of the page. It is stated without numbers on purpose.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
     },
     {
       "id": "card-small-model",
-      "no": "ENTRY 04",
+      "no": "ENTRY 05",
       "title": "SMALL-MODEL RESEARCH",
       "p": "Distillation and pruning experiments run on a consumer GPU. The code and the measurements are not public, so there is nothing here to check; the entry is listed for completeness, without figures.",
-      "tags": ["Python", "Distillation", "Graph networks", "Consumer GPU"]
+      "tags": [
+        "Python",
+        "Distillation",
+        "Graph networks",
+        "Consumer GPU"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-small-model",
+        "no": "[03·05]",
+        "sub": "dossier · private",
+        "lead": "Distillation and pruning experiments on a consumer GPU. The code and the measurements are private, so this dossier describes the setup and claims no result.",
+        "cells": [
+          {
+            "b": "Method",
+            "p": "Knowledge distillation from a larger teacher into a smaller student, then pruning of the student, with graph networks among the model families."
+          },
+          {
+            "b": "Constraint",
+            "p": "Everything ran on one consumer GPU, which set the model sizes and the batch sizes. Fitting the experiment to the card was most of the work."
+          },
+          {
+            "b": "Status",
+            "p": "Not public. No figures are listed because none can be checked from outside."
+          }
+        ],
+        "path": [
+          "TEACHER",
+          "DISTILLATION",
+          "STUDENT",
+          "PRUNING",
+          "EVALUATION"
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "without published code or numbers this entry is a statement of what I worked on, nothing more. It is listed for completeness.",
+        "hintHtml": "Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
     }
   ],
   "graveyard": [
     {
       "id": "card-agenticnn",
-      "no": "ENTRY 05 — CLOSED",
+      "no": "ENTRY 06 — CLOSED",
       "title": "AGENTICNN",
       "p": "A multi-role LLM agent pipeline — project manager, specialists, integrator, programmer, QA, toolsmith — that I pointed at an ARC-AGI puzzle: the agents write numpy code over a small hand-built DSL. The planning stages completed every time; the code-generation stage never passed verification. I stopped there. The run log is public, so the failures can be counted. Public repository — github.com/ojnadjarm/agenticneturalnetwork.",
-      "tags": ["Python", "numpy", "ARC-AGI", "LLM agents"],
-      "links": [
-        { "k": "RUN LOG — 7 FAILED VERIFICATIONS, THEN ABORT:", "label": "logs/agentic_network.log", "url": "https://github.com/ojnadjarm/agenticneturalnetwork/blob/main/logs/agentic_network.log" },
-        { "k": "THE COMMIT:", "label": "First version", "url": "https://github.com/ojnadjarm/agenticneturalnetwork/commit/d4a87a56c571eb511399ea7d842e19d45d2e5692" }
-      ]
+      "tags": [
+        "Python",
+        "numpy",
+        "ARC-AGI",
+        "LLM agents"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-agenticnn",
+        "no": "[03·06]",
+        "sub": "dossier · closed · public",
+        "lead": "A multi-role LLM agent pipeline pointed at an ARC-AGI puzzle. Abandoned in August 2025 after the code-generation stage never passed verification; the repository stays public as the record.",
+        "repo": "agenticneturalnetwork",
+        "cells": [
+          {
+            "b": "Pipeline",
+            "p": "Project manager, specialists, integrator, expert programmer, QA and toolsmith agents, one Python module each, writing numpy code over a small hand-built DSL of colour, geometry and pattern operations."
+          },
+          {
+            "b": "Outcome",
+            "p": "The planning stages completed on every run; verification of the generated code failed 7 times in the public log and the run aborted. One commit, no further work: this project is abandoned."
+          }
+        ],
+        "links": [
+          {
+            "k": "RUN LOG — 7 FAILED VERIFICATIONS, THEN ABORT:",
+            "label": "logs/agentic_network.log",
+            "url": "https://github.com/ojnadjarm/agenticneturalnetwork/blob/main/logs/agentic_network.log"
+          },
+          {
+            "k": "THE COMMIT:",
+            "label": "First version",
+            "url": "https://github.com/ojnadjarm/agenticneturalnetwork/commit/d4a87a56c571eb511399ea7d842e19d45d2e5692"
+          }
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "the pipeline design was the easy part. The agents could plan but could not produce code that passed the checks, and I stopped rather than tuned.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
     },
     {
       "id": "card-navi-agent",
-      "no": "ENTRY 06 — CLOSED",
+      "no": "ENTRY 07 — CLOSED",
       "title": "NAVI-AGENT",
       "p": "An Electron desktop notifier for AI agents: a floating Navi fairy that hosts an MCP server with one tool, notify(kind, message, title?), and rings, changes colour and shows a speech bubble when an agent calls it. Windows-only. I finished it as a small tool and left it there. Public repository — github.com/ojnadjarm/navi-agent.",
-      "tags": ["TypeScript", "CSS", "HTML", "Electron", "MCP"],
-      "links": [
-        { "k": "MCP SERVER:", "label": "src/main/mcp.ts", "url": "https://github.com/ojnadjarm/navi-agent/blob/master/src/main/mcp.ts" },
-        { "k": "TOOL TABLE:", "label": "README.md", "url": "https://github.com/ojnadjarm/navi-agent/blob/master/README.md" }
-      ]
+      "tags": [
+        "TypeScript",
+        "CSS",
+        "HTML",
+        "Electron",
+        "MCP"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-navi-agent",
+        "no": "[03·07]",
+        "sub": "dossier · closed · public",
+        "lead": "An Electron desktop notifier for AI agents: a floating fairy that hosts an MCP server with one tool. Finished as a small tool in July 2026 and left there; the repository is closed.",
+        "repo": "navi-agent",
+        "cells": [
+          {
+            "b": "Tool",
+            "p": "notify(kind, message, title?) over streamable HTTP on port 8641. The three kinds — urgent, warning, success — set the colour and the chime volume, and the message shows in a speech bubble."
+          },
+          {
+            "b": "Limits",
+            "p": "Windows-only, because of the transparent always-on-top overlay and the audio. The server listens on every interface, so any host on the LAN can trigger it. Two commits from one evening, no further work: this project is closed."
+          }
+        ],
+        "links": [
+          {
+            "k": "MCP SERVER:",
+            "label": "src/main/mcp.ts",
+            "url": "https://github.com/ojnadjarm/navi-agent/blob/master/src/main/mcp.ts"
+          },
+          {
+            "k": "TOOL TABLE:",
+            "label": "README.md",
+            "url": "https://github.com/ojnadjarm/navi-agent/blob/master/README.md"
+          }
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "a one-evening tool that does what its README says and no more. It is here because it is public and it works.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
     }
   ]
 }

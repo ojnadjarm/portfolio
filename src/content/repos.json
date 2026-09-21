@@ -1,7 +1,9 @@
 [
-  { "name": "the-dark-eye", "url": "https://github.com/ojnadjarm/the-dark-eye", "oneLine": "A local-first voice assistant with no chat window: an animated eye on the TV, a Node body, local ASR and TTS." },
+  { "name": "the-dark-eye", "url": "https://github.com/ojnadjarm/the-dark-eye", "oneLine": "A local-first voice assistant with no chat window: an animated eye on the screen, a Node body, local ASR and TTS." },
   { "name": "ubuntu-tools", "url": "https://github.com/ojnadjarm/ubuntu-tools", "oneLine": "Machine-control CLIs and the agent fleet that runs on one Ubuntu box under systemd timers." },
   { "name": "moodle-harness", "url": "https://github.com/ojnadjarm/moodle-harness", "oneLine": "The development harness used on every Moodle job: guidelines as checks, CI, scaffolding, versioned environments." },
+  { "name": "local_aicharts", "url": "https://github.com/ojnadjarm/local_aicharts", "oneLine": "A Moodle plugin: ask for a chart in plain language, get a validated SQL query and a chart on a dashboard, live or scheduled." },
+  { "name": "agenticneturalnetwork", "url": "https://github.com/ojnadjarm/agenticneturalnetwork", "oneLine": "A multi-role LLM agent pipeline pointed at an ARC-AGI puzzle, abandoned after verification never passed." },
   { "name": "navi-agent", "url": "https://github.com/ojnadjarm/navi-agent", "oneLine": "An earlier tool-using agent, closed out." },
   { "name": "quatum-learn-interface", "url": "https://github.com/ojnadjarm/quatum-learn-interface", "oneLine": "An interface for quantum-computing learning material." }
 ]
