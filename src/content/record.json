@@ -1,0 +1,28 @@
+{
+  "sub": "dated · verifiable on LinkedIn",
+  "rows": [
+    { "yr": "2011–2017", "h4": "Electronics Engineering", "p": "Escuela Colombiana de Ingeniería “Julio Garavito”, Bogotá." },
+    { "yr": "2016–2017", "h4": "Technician · DANE", "p": "National statistics office, Colombia." },
+    { "yr": "2018-01 → 2018-11", "h4": "Technical Consultant · Open LMS", "p": "Bogotá. Entry into the LMS industry." },
+    { "yr": "2018-12 → 2022-07", "h4": "Software Engineer · Open LMS", "p": "Bogotá. Moodle plugins, themes, integrations and upgrades; led mobile app development. Public commits from this period are in the commit search below." },
+    { "yr": "2020", "h4": "Remote", "p": "Working remotely since 2020. Not on the LinkedIn record; my own correction." },
+    { "yr": "2022-07 → 2023-09", "h4": "Software Engineer · Aprende Institute", "p": "Bogotá. LMS development and integrations." },
+    { "yr": "2023-10 → present", "h4": "Software Engineer · Moodle", "p": "Spain. Plugin and core work. Core changes are filed from a shared company account and committed by integrators, so nothing public carries my name: that part cannot be verified from outside." },
+    { "yr": "2026", "h4": "The harness and the Eye", "p": "An agent fleet running on one machine on systemd timers, and the voice assistant front end for it. Both are public repositories under github.com/ojnadjarm." }
+  ],
+  "sealedSub": "present · not readable",
+  "sealedLead": "Work under NDA or in private repositories, listed by date, domain and stack, and not shown. The redacted fields are generated blocks: no client identity is stored behind them. Nothing here is offered as a claim — if it cannot be checked, it is not counted.",
+  "sealed": [
+    { "ix": "S01", "w": 15, "dsc": "LMS platform · plugin suite · long-running", "yr": "2018–2022" },
+    { "ix": "S02", "w": 11, "dsc": "Theme & front end · institutional install", "yr": "2019–2021" },
+    { "ix": "S03", "w": 13, "dsc": "Integrations · reporting · data migration", "yr": "2021–2023" },
+    { "ix": "S04", "w": 9, "dsc": "Core tracker work · no public attribution", "yr": "2023–" },
+    { "ix": "S05", "w": 16, "dsc": "Internal tooling · agents · not distributable", "yr": "2023–" }
+  ],
+  "links": [
+    { "href": "github", "label": "CODE", "text": "github.com/ojnadjarm" },
+    { "href": "commits", "label": "COMMITS", "text": "github.com/search — author-name \"Oscar Nadjar\"" },
+    { "href": "linkedin", "label": "CAREER", "text": "linkedin.com — oscar-nadjar-jaramillo" }
+  ],
+  "sig": "Built by hand — vanilla JS, CSS and three.js. Source: github.com/ojnadjarm/portfolio"
+}

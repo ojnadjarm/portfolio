@@ -1,0 +1,16 @@
+{
+  "kick": "Screen 01 — Identity",
+  "h1": "OSCAR NADJAR",
+  "heroHtml": "I am a software engineer. Nine years in the Moodle ecosystem — plugin, theme and integration development, LMS architecture — and <span class=\"lit\">local AI systems</span> built on my own hardware. This page is a record of that work.",
+  "cite": "Oscar Nadjar · software engineer · Barcelona, Spain",
+  "whoHtml": "<b>Nine years in the Moodle ecosystem. Electronics Engineering degree. Bogotá → Barcelona.</b> Most of what I have built is in private repositories and client systems and cannot be shown. What can be shown is here, with a link to check it; what cannot is listed by date, domain and stack, with no figures attached to it.",
+  "split": [
+    { "commits": true, "label": "Public commits · as of", "em": "The number the GitHub commit search returns today. Click it." },
+    { "n": "NDA", "muted": true, "label": "Not publicly visible", "em": "Most of my work is in private repositories and client systems." }
+  ],
+  "links": [
+    { "href": "github", "label": "CODE", "text": "github.com/ojnadjarm" },
+    { "href": "linkedin", "label": "CAREER", "text": "linkedin.com — oscar-nadjar-jaramillo" }
+  ],
+  "hintHtml": "Move: <u>← →</u> screens  ·  <u>↑ ↓</u> targets  ·  <u>Enter</u> open  ·  <u>Esc</u> back"
+}

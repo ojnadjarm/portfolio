@@ -1,0 +1,30 @@
+{
+  "leadHtml": "Rated by current use, not by level. <span style=\"color:var(--acc)\">HOT</span> is in daily use. WARM is current but not in active use. COLD is archived.",
+  "rows": [
+    { "k": "LMS", "t": "HOT", "p": "Moodle core internals, every plugin type, upgrade paths, Behat and PHPUnit, theme layers, DB portability across MySQL and PostgreSQL." },
+    { "k": "PHP", "t": "HOT", "p": "Nine years. Plugin architecture, hook layers, and keeping plugin code thin enough to survive a core release." },
+    { "k": "Front end", "t": "WARM", "p": "JavaScript, Mustache, SCSS, accessibility, and theme maintenance across Moodle upgrades." },
+    { "k": "Systems", "t": "HOT", "p": "Rust, Node services, Linux and systemd units, Docker, Wayland, and local speech recognition and synthesis, all on a single machine." },
+    { "k": "Agents", "t": "HOT", "p": "Tool-using agent systems, headless runners on systemd timers, audit logging, and non-chat interfaces for agents." },
+    { "k": "Small models", "t": "WARM", "p": "Distillation and compression experiments on consumer hardware. Graph networks and pruning schedules." },
+    { "k": "Math", "t": "WARM", "p": "Linear algebra, Fourier analysis, and the probability required for model work." },
+    { "k": "Hardware", "t": "COLD", "p": "Electronic Engineering, embedded work, robotics. Unused since university." }
+  ],
+  "method": [
+    { "k": "Spec", "t": "RULE", "p": "Work starts from a written definition of done, agreed before any code is written." },
+    { "k": "Scope", "t": "RULE", "p": "The smallest change that solves the stated problem. No speculative abstraction." },
+    { "k": "Retire", "t": "RULE", "p": "Projects that no longer justify their cost are marked retired and closed out." },
+    { "k": "Record", "t": "RULE", "p": "Every project note records what was tried, what failed, and any prior work that reached the result first." }
+  ],
+  "explored": [
+    {"k": "ARC", "t": "BUILT", "p": "I built an ARC-AGI solving toolkit: a grid DSL, a Tkinter interface for hand-composing solutions as DSL programs, and a fine-tuning pipeline (PEFT on a small Gemma, a visual FAISS index) over the solved examples — Python, numpy, PyTorch, transformers."},
+    {"k": "DATA", "t": "BUILT", "p": "I built a data-ingestion and reporting platform for a public waste-management agency: Django, PostgreSQL, MinIO object storage, Apache NiFi flows, Docker Compose."},
+    {"k": "GNN", "t": "EXPLORED", "p": "I explored graph-shaped neural networks that learn with local Hebbian rules instead of backprop, and that prune themselves during a sleep phase — Fibonacci versus random wiring, product neurons, wake/sleep cycles — in Python/PyTorch with a Rust wiring simulator."},
+    {"k": "AVATARS", "t": "BUILT", "p": "I built a Godot 4 framework that gives LLM agents a body in a 2D top-down world, with an emotion engine and agent-to-agent talk over the Google A2A protocol — GDScript, MCP, Hermes/OpenClaw gateways."},
+    {"k": "DSP", "t": "EXPLORED", "p": "I explored transformers as linear operators from a DSP angle: impulse-response probing of the residual stream, spectral truncation, and knowledge distillation of GPT-2 into a small student using noise as the excitation signal — PyTorch, TransformerLens, ROCm."},
+    {"k": "INTERP", "t": "EXPLORED", "p": "I explored mechanistic understanding of CNNs, LLMs and GNNs and of quantum algorithms through a predict-first question protocol, with a SvelteKit playground whose librarian runs on the Claude Agent SDK."},
+    {"k": "AGENTS", "t": "EXPLORED", "p": "I explored agent orchestration and prompt engineering with the Hermes agent framework and MCP."},
+    {"k": "TRANSFORMERS", "t": "EXPLORED", "p": "I explored transformer internals, training dynamics and mechanistic interpretability through a build-from-scratch study plan in JAX and PyTorch."},
+    {"k": "QUANTUM", "t": "EXPLORED", "p": "I explored quantum machine learning: a from-scratch numpy quantum kernel SVM audited against a classical RBF kernel, plus a React/TypeScript study console for the linear-algebra groundwork."}
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "lead": "Select an entry to open its dossier. The flagship has a full record; the rest are summaries.",
+  "entries": [
+    {
+      "id": "card-dark-eye",
+      "no": "ENTRY 01 — FLAGSHIP · DOSSIER AVAILABLE",
+      "title": "THE DARK EYE",
+      "p": "A voice assistant with a face. A Rust overlay renders an eye on the living-room TV, a Node body routes intent, and a local worker runs speech recognition and answers in any of 53 voices. Audio never leaves the local network. Reachable from a phone.",
+      "tags": ["Rust", "Node", "Local ASR", "TTS · 53 voices", "Wayland", "systemd"],
+      "flagship": true,
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-dark-eye",
+        "no": "[03·01]",
+        "sub": "dossier · flagship",
+        "lead": "A local-first voice assistant with no chat window: an animated eye rendered on the television, a service on the machine, and speech recognition and synthesis that run locally.",
+        "repo": "the-dark-eye",
+        "cells": [
+          { "b": "Eye", "p": "A Rust overlay drawing an animated eye over the TV output. It is the whole interface: the eye animation carries the state while the body processes the request." },
+          { "b": "Body", "p": "A Node service that routes what was heard to the right agent, keeps state and holds the channels open. It runs as a systemd unit." },
+          { "b": "Ear & voice", "p": "A local worker running speech recognition on the machine, and synthesis with 53 selectable voices. No cloud round trip." },
+          { "b": "Reach", "p": "A page on the private network, so the same assistant is reachable from a phone off-site." }
+        ],
+        "path": ["VOICE", "LOCAL ASR", "BODY", "AGENT", "TTS", "EYE + SPEAKER"],
+        "riskEm": "Honest calibration —",
+        "risk": "the model was not the hard part. The work was latency, a Wayland overlay that stays on top of a television output, and keeping the services running unattended under systemd.",
+        "hintHtml": "Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
+    },
+    {
+      "id": "card-moodle-harness",
+      "no": "ENTRY 02",
+      "title": "MOODLE HARNESS",
+      "p": "The development harness I use on every Moodle job: coding guidelines encoded as checks, CI that mirrors the pipeline, plugin scaffolding from a short recipe, and one command to build a versioned Moodle environment.",
+      "repo": "moodle-harness",
+      "tags": ["PHP", "Docker", "phpcs", "PHPUnit", "CI"]
+    },
+    {
+      "id": "card-moodle-work",
+      "no": "ENTRY 03",
+      "title": "MOODLE, AT WORK",
+      "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. I filed the core issues in the tracker from a shared company account and the integrators committed the patches, so there is no public attribution and that part cannot be verified from outside. The public commit figure below can be, and is dated because it moves.",
+      "tags": ["PHP", "PostgreSQL", "Behat", "Tracker"],
+      "statHtml": "PUBLIC <u>{commits}</u> · CHECK IT: <u>github.com/search — author-name \"Oscar Nadjar\"</u>"
+    },
+    {
+      "id": "card-small-model",
+      "no": "ENTRY 04",
+      "title": "SMALL-MODEL RESEARCH",
+      "p": "Distillation and pruning experiments run on a consumer GPU. The code and the measurements are not public, so there is nothing here to check; the entry is listed for completeness, without figures.",
+      "tags": ["Python", "Distillation", "Graph networks", "Consumer GPU"]
+    }
+  ],
+  "graveyard": [
+    {
+      "id": "card-agenticnn",
+      "no": "ENTRY 05 — CLOSED",
+      "title": "AGENTICNN",
+      "p": "A multi-role LLM agent pipeline — project manager, specialists, integrator, programmer, QA, toolsmith — that I pointed at an ARC-AGI puzzle: the agents write numpy code over a small hand-built DSL. The planning stages completed every time; the code-generation stage never passed verification. I stopped there. The run log is public, so the failures can be counted. Public repository — github.com/ojnadjarm/agenticneturalnetwork.",
+      "tags": ["Python", "numpy", "ARC-AGI", "LLM agents"],
+      "links": [
+        { "k": "RUN LOG — 7 FAILED VERIFICATIONS, THEN ABORT:", "label": "logs/agentic_network.log", "url": "https://github.com/ojnadjarm/agenticneturalnetwork/blob/main/logs/agentic_network.log" },
+        { "k": "THE COMMIT:", "label": "First version", "url": "https://github.com/ojnadjarm/agenticneturalnetwork/commit/d4a87a56c571eb511399ea7d842e19d45d2e5692" }
+      ]
+    },
+    {
+      "id": "card-navi-agent",
+      "no": "ENTRY 06 — CLOSED",
+      "title": "NAVI-AGENT",
+      "p": "An Electron desktop notifier for AI agents: a floating Navi fairy that hosts an MCP server with one tool, notify(kind, message, title?), and rings, changes colour and shows a speech bubble when an agent calls it. Windows-only. I finished it as a small tool and left it there. Public repository — github.com/ojnadjarm/navi-agent.",
+      "tags": ["TypeScript", "CSS", "HTML", "Electron", "MCP"],
+      "links": [
+        { "k": "MCP SERVER:", "label": "src/main/mcp.ts", "url": "https://github.com/ojnadjarm/navi-agent/blob/master/src/main/mcp.ts" },
+        { "k": "TOOL TABLE:", "label": "README.md", "url": "https://github.com/ojnadjarm/navi-agent/blob/master/README.md" }
+      ]
+    }
+  ]
+}

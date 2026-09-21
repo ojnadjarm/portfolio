@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oscar Nadjar — software engineer</title>
+<meta name="description" content="Oscar Nadjar — software engineer. Nine years in the Moodle ecosystem and local AI systems. A record of the work, with links.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#070707">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect width='16' height='16' fill='%23ffb000'/%3E%3C/svg%3E">
+<meta property="og:title" content="Oscar Nadjar — software engineer">
+<meta property="og:description" content="Nine years in the Moodle ecosystem and local AI systems. A record of the work, with links.">
+</head>
+<body>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="scrim" aria-hidden="true"></div>
+
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="ticks" aria-hidden="true"></div>
+<div class="sweep" aria-hidden="true"><b></b></div>
+<div class="ap" aria-hidden="true"><u></u><u></u></div>
+<div class="readout" aria-hidden="true" id="readout">ROUTE<s>&nbsp;</s></div>
+<div class="ret" id="ret" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+
+<div class="rail">
+  <span class="id"><b>◆</b> OSCAR NADJAR</span>
+  <span class="st" id="state">READY</span>
+  <span class="rt" id="route">— · —</span>
+  <span class="sp"></span>
+  <span id="scr">SCREEN 01/04</span>
+  <span id="clk">--:--:--</span>
+</div>
+
+<main class="stage" id="stage">
+
+<!-- ================= 01 IDENTITY ================= -->
+<section class="screen" id="s-identity" aria-label="Identity">
+ <div class="inner">
+ </div>
+</section>
+
+<!-- ================= 02 KNOWLEDGE ================= -->
+<section class="screen" id="s-knowledge" aria-label="Knowledge" hidden>
+ <div class="inner">
+ </div>
+</section>
+
+<!-- ================= 03 PROJECTS ================= -->
+<section class="screen" id="s-projects" aria-label="Projects" hidden>
+ <div class="inner">
+ </div>
+</section>
+
+<!-- ================= 03a PROJECT DETAIL ================= -->
+<section class="screen" id="s-dark-eye" aria-label="The Dark Eye — dossier" hidden>
+ <div class="inner">
+ </div>
+</section>
+
+<!-- ================= 04 RECORD ================= -->
+<section class="screen" id="s-record" aria-label="Record" hidden>
+ <div class="inner">
+
+ </div>
+</section>
+
+</main>
+
+<nav class="dock" id="dock" aria-label="Screens">
+  <button data-go="s-identity"><em>01</em><span>Identity</span></button>
+  <button data-go="s-knowledge"><em>02</em><span>Knowledge</span></button>
+  <button data-go="s-projects"><em>03</em><span>Projects</span></button>
+  <button data-go="s-record"><em>04</em><span>Record</span></button>
+  <button class="back" id="back" hidden><em>esc</em><span>◂ Back</span></button>
+</nav>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

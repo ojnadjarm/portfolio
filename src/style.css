@@ -1,0 +1,312 @@
+:root{
+  /* ---- the entire palette: amber + neutrals ---- */
+  --bg:#070707; --bg1:#0c0c0c; --bg2:#111; --bg3:#161616;
+  --line:#1d1d1d; --line2:#2b2b2b; --line3:#3a3a3a;
+  --dim:#5f5f5f; --mid:#8d8d8d; --txt:#d7d7d7; --hi:#f2f2f2;
+  --acc:#ffb000;
+  --acc-70:rgba(255,176,0,.7); --acc-35:rgba(255,176,0,.35);
+  --acc-16:rgba(255,176,0,.16); --acc-07:rgba(255,176,0,.07);
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --rail:38px; --dock:54px;
+  --e-out:cubic-bezier(.55,0,.75,.2);
+  --e-in:cubic-bezier(.12,.9,.24,1);
+  --e-settle:cubic-bezier(.16,1.24,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:var(--mono); font-size:13.5px; line-height:1.6;
+  height:100svh; overflow:hidden;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+[hidden]{display:none!important}
+
+/* ================= 3D lattice backdrop ================= */
+/* The seed graph, in 3D: sparse amber wireframe receding into black.
+   Sits behind everything; dimmed further under the text-dense screens. */
+#bg{position:fixed;inset:0;z-index:1;display:block;width:100%;height:100%;
+  opacity:.92;transition:opacity .5s ease}
+body[data-screen="s-knowledge"] #bg,
+body[data-screen="s-record"] #bg{opacity:.34}
+body[data-screen="s-dark-eye"] #bg{opacity:.7}
+.scrim{position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 8% 44%, rgba(7,7,7,.94) 0%, rgba(7,7,7,.8) 34%, rgba(7,7,7,.28) 68%, rgba(7,7,7,0) 100%),
+    linear-gradient(to bottom, rgba(7,7,7,.82) 0%, rgba(7,7,7,.2) 22%, rgba(7,7,7,.2) 74%, rgba(7,7,7,.86) 100%);
+}
+
+/* ================= persistent chrome frame ================= */
+.frame{position:fixed;inset:0;pointer-events:none;z-index:60}
+.frame i{
+  position:absolute;width:16px;height:16px;border:1px solid var(--acc-35);
+  transition:transform .34s var(--e-in),border-color .34s ease,opacity .34s ease;
+}
+.frame i:nth-child(1){top:calc(var(--rail) + 6px);left:6px;border-right:0;border-bottom:0}
+.frame i:nth-child(2){top:calc(var(--rail) + 6px);right:6px;border-left:0;border-bottom:0}
+.frame i:nth-child(3){bottom:calc(var(--dock) + 6px);left:6px;border-right:0;border-top:0}
+.frame i:nth-child(4){bottom:calc(var(--dock) + 6px);right:6px;border-left:0;border-top:0}
+body.busy .frame i{border-color:var(--acc-70)}
+body.busy .frame i:nth-child(1){transform:translate(-5px,-5px)}
+body.busy .frame i:nth-child(2){transform:translate(5px,-5px)}
+body.busy .frame i:nth-child(3){transform:translate(-5px,5px)}
+body.busy .frame i:nth-child(4){transform:translate(5px,5px)}
+body.dive .frame i{opacity:.25}
+
+/* tick rail down the left edge */
+.ticks{position:fixed;left:0;top:var(--rail);bottom:var(--dock);width:6px;z-index:55;
+  background:repeating-linear-gradient(to bottom,var(--line2) 0 1px,transparent 1px 13px);
+  opacity:.8;pointer-events:none}
+body.busy .ticks{background:repeating-linear-gradient(to bottom,var(--acc-35) 0 1px,transparent 1px 13px)}
+
+/* ================= top status rail ================= */
+.rail{
+  position:fixed;top:0;left:0;right:0;height:var(--rail);z-index:70;
+  display:flex;align-items:center;gap:14px;padding:0 12px;
+  background:var(--bg1);border-bottom:1px solid var(--line);
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  white-space:nowrap;overflow:hidden;
+}
+.rail .id{color:var(--hi);letter-spacing:.1em}
+.rail .id b{color:var(--acc);font-weight:400}
+.rail .sp{flex:1}
+.rail .st{color:var(--acc);min-width:9ch}
+.rail .st.wait{animation:pulse .5s steps(2) infinite}
+@keyframes pulse{50%{opacity:.35}}
+.rail .rt{color:var(--mid);min-width:16ch}
+@media(max-width:620px){.rail .rt{display:none}.rail{gap:10px;font-size:9px}}
+
+/* ================= stage ================= */
+.stage{
+  position:fixed;top:var(--rail);left:0;right:0;bottom:var(--dock);
+  perspective:1400px;overflow:hidden;z-index:10;
+}
+.screen{
+  position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  padding:26px 20px 40px 22px;transform-style:preserve-3d;
+  scrollbar-width:thin;
+}
+.screen[hidden]{display:none}
+.inner{max-width:1000px;margin:0 auto}
+
+/* ---- exit stages ---- */
+.screen.out-l{animation:outL .2s var(--e-out) both}
+.screen.out-r{animation:outR .2s var(--e-out) both}
+@keyframes outL{to{opacity:0;transform:translate3d(-9%,0,-120px) rotateY(7deg)}}
+@keyframes outR{to{opacity:0;transform:translate3d(9%,0,-120px) rotateY(-7deg)}}
+.screen.out-dive{animation:outDive .22s var(--e-out) both}
+@keyframes outDive{60%{opacity:.6}to{opacity:0;transform:translate3d(0,0,-420px) scale(.9)}}
+.screen.out-surf{animation:outSurf .22s var(--e-out) both}
+@keyframes outSurf{to{opacity:0;transform:translate3d(0,0,260px) scale(1.14)}}
+
+/* ---- assemble stage: panels lock in, staggered ---- */
+.screen.in-l .pn{animation:inL .38s var(--e-settle) both;animation-delay:calc(var(--i,0) * 55ms)}
+.screen.in-r .pn{animation:inR .38s var(--e-settle) both;animation-delay:calc(var(--i,0) * 55ms)}
+@keyframes inL{from{opacity:0;transform:translate3d(-34px,0,-90px)}to{opacity:1;transform:none}}
+@keyframes inR{from{opacity:0;transform:translate3d(34px,0,-90px)}to{opacity:1;transform:none}}
+.screen.in-dive .pn{animation:inDive .42s var(--e-settle) both;animation-delay:calc(var(--i,0) * 52ms)}
+@keyframes inDive{from{opacity:0;transform:translate3d(0,0,-300px) scale(.86)}to{opacity:1;transform:none}}
+.screen.in-surf .pn{animation:inSurf .4s var(--e-settle) both;animation-delay:calc(var(--i,0) * 40ms)}
+@keyframes inSurf{from{opacity:0;transform:translate3d(0,14px,140px) scale(1.1)}to{opacity:1;transform:none}}
+
+/* panel edge that "locks" */
+.pn{position:relative}
+.pn:before{
+  content:"";position:absolute;left:-10px;top:0;width:1px;height:100%;
+  background:var(--acc);transform:scaleY(0);transform-origin:top;
+}
+.screen.landed .pn:before{animation:lock .34s var(--e-in) both;animation-delay:calc(var(--i,0) * 55ms + 60ms)}
+@keyframes lock{to{transform:scaleY(1)}}
+@media(max-width:560px){.pn:before{left:-12px}}
+
+/* ---- row streaming ---- */
+.screen.landed .stream > *{animation:row .3s var(--e-in) both;animation-delay:calc(220ms + var(--r,0) * 44ms)}
+@keyframes row{from{opacity:0;transform:translate3d(-14px,0,0)}to{opacity:1;transform:none}}
+.stream > *{opacity:1}
+
+/* ================= interstitial machinery ================= */
+.sweep{position:fixed;top:var(--rail);left:0;right:0;bottom:var(--dock);z-index:58;pointer-events:none;opacity:0}
+.sweep b{
+  position:absolute;top:0;bottom:0;left:0;width:26vw;display:block;
+  background:linear-gradient(90deg,transparent,var(--acc-16) 40%,var(--acc-70) 50%,var(--acc-16) 60%,transparent);
+}
+body.busy .sweep{opacity:1}
+body.busy .sweep b{animation:sweep .42s var(--e-in) both}
+@keyframes sweep{from{transform:translate3d(-30vw,0,0)}to{transform:translate3d(105vw,0,0)}}
+body.rev.busy .sweep b{animation:sweepR .42s var(--e-in) both}
+@keyframes sweepR{from{transform:translate3d(105vw,0,0)}to{transform:translate3d(-30vw,0,0)}}
+
+/* aperture — only on dive / surface */
+.ap{position:fixed;top:var(--rail);left:0;right:0;bottom:var(--dock);z-index:59;pointer-events:none}
+.ap u{position:absolute;left:0;right:0;height:50%;background:var(--bg);border-color:var(--acc-35);transform:scaleY(0);opacity:0}
+.ap u:first-child{top:0;transform-origin:top;border-bottom:1px solid var(--acc-35)}
+.ap u:last-child{bottom:0;transform-origin:bottom;border-top:1px solid var(--acc-35)}
+body.dive .ap u{opacity:1;animation:iris .5s var(--e-in) both}
+@keyframes iris{0%{transform:scaleY(0)}42%{transform:scaleY(1)}58%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+
+/* readout that types the route during the interstitial */
+.readout{
+  position:fixed;left:50%;top:50%;z-index:62;transform:translate(-50%,-50%);
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);
+  pointer-events:none;opacity:0;text-align:center;
+}
+body.busy .readout{opacity:1}
+.readout s{display:block;text-decoration:none;color:var(--dim);letter-spacing:.2em;font-size:9.5px;margin-top:6px}
+
+/* ================= bottom dock (screen selector) ================= */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;height:var(--dock);z-index:70;
+  display:flex;align-items:stretch;gap:0;
+  background:var(--bg1);border-top:1px solid var(--line);
+}
+.dock button{
+  flex:1;min-width:0;padding:7px 8px;display:flex;flex-direction:column;justify-content:center;gap:3px;
+  border-right:1px solid var(--line);position:relative;overflow:hidden;
+  transition:background .2s ease,color .2s ease;
+}
+.dock button:last-child{border-right:0}
+.dock button em{font-style:normal;font-size:9px;letter-spacing:.2em;color:var(--dim)}
+.dock button span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);
+  overflow:hidden;text-overflow:ellipsis}
+.dock button:hover{background:var(--bg2)}
+.dock button:hover span{color:var(--txt)}
+.dock button:after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--acc);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s var(--e-in);
+}
+.dock button[aria-current="true"]:after{transform:scaleX(1)}
+.dock button[aria-current="true"] span{color:var(--acc)}
+.dock button[aria-current="true"] em{color:var(--acc-70)}
+.dock .back{flex:0 0 auto;padding-inline:14px}
+@media(max-width:560px){
+  .dock button em{display:none}
+  .dock button span{font-size:9.5px;letter-spacing:.08em}
+  .dock button{padding:6px 4px}
+}
+
+/* ================= travelling reticle ================= */
+.ret{position:fixed;z-index:64;pointer-events:none;opacity:0;
+  width:var(--w,0px);height:var(--h,0px);
+  transform:translate3d(var(--x,0px),var(--y,0px),0);
+  transition:transform .22s var(--e-in),opacity .18s ease}
+.ret.on{opacity:1}
+.ret b{position:absolute;width:9px;height:9px;border:1px solid var(--acc)}
+.ret b:nth-child(1){top:-2px;left:-2px;border-right:0;border-bottom:0}
+.ret b:nth-child(2){top:-2px;right:-2px;border-left:0;border-bottom:0}
+.ret b:nth-child(3){bottom:-2px;left:-2px;border-right:0;border-top:0}
+.ret b:nth-child(4){bottom:-2px;right:-2px;border-left:0;border-top:0}
+
+/* visible focus, always, reticle or not */
+:focus{outline:none}
+:focus-visible,.tgt:focus{outline:1px solid var(--acc);outline-offset:3px}
+.tgt:focus{background:var(--bg3)}
+
+/* ================= content atoms ================= */
+.hdr{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.hdr i{font-style:normal;font-size:10px;letter-spacing:.24em;color:var(--acc)}
+.hdr h2{font-size:clamp(17px,4.4vw,27px);font-weight:600;letter-spacing:-.01em;color:var(--hi)}
+.hdr hr{flex:1 1 40px;border:0;border-top:1px solid var(--line);align-self:center}
+.hdr .sub{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.lead{color:var(--mid);font-size:12.5px;max-width:70ch;margin:14px 0 26px}
+.pn + .pn{margin-top:30px}
+
+h1{font-size:clamp(32px,9vw,74px);line-height:.98;font-weight:600;letter-spacing:-.025em;color:var(--hi);word-break:break-word}
+h1 .cur{color:var(--acc);animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.kick{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+blockquote{
+  margin:24px 0 0;padding-left:16px;border-left:1px solid var(--line3);
+  font-size:clamp(13px,2.8vw,16.5px);color:var(--txt);max-width:62ch;line-height:1.55;
+}
+blockquote .lit{color:var(--acc)}
+blockquote cite{display:block;margin-top:9px;font-style:normal;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.who{margin-top:24px;font-size:12.5px;color:var(--mid);max-width:68ch}
+.who b{color:var(--txt);font-weight:400}
+
+.split{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px;max-width:620px}
+@media(min-width:560px){.split{grid-template-columns:1fr 1fr}}
+.split div{background:var(--bg1);padding:16px}
+.split b{display:block;font-size:26px;font-weight:600;letter-spacing:-.03em;color:var(--acc);line-height:1.1;font-variant-numeric:tabular-nums}
+.split b.n{color:var(--mid)}
+.split b a{color:inherit;text-decoration:none}
+.split b a:hover,.split b a:focus{color:var(--acc);text-decoration:underline;text-underline-offset:4px}
+.split span{display:block;margin-top:7px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.split em{display:block;margin-top:5px;font-style:normal;font-size:11px;color:var(--mid)}
+
+/* knowledge rows */
+.krow{display:grid;grid-template-columns:1fr;gap:4px;padding:13px 0;border-bottom:1px solid var(--line)}
+@media(min-width:720px){.krow{grid-template-columns:132px 66px 1fr;gap:18px;align-items:baseline}}
+.krow .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.krow .t{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.krow .t.hot{color:var(--acc-70)}
+.krow p{font-size:12.5px;color:var(--mid)}
+
+/* project grid */
+.grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:6px}
+@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+.card{
+  background:var(--bg1);padding:20px 18px;position:relative;display:block;width:100%;
+  transition:background .2s ease,transform .24s var(--e-in);
+}
+.card.flag{grid-column:1/-1}
+.card:hover,.card:focus{background:var(--bg2)}
+.card .no{font-size:9.5px;letter-spacing:.2em;color:var(--dim)}
+.card h3{font-size:clamp(17px,4vw,24px);font-weight:600;margin:6px 0 9px;letter-spacing:-.01em;color:var(--hi)}
+.card p{color:var(--mid);font-size:12.5px;max-width:64ch}
+.card .open{margin-top:13px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);opacity:0;transform:translateX(-5px);transition:.22s var(--e-in)}
+.card:hover .open,.card:focus .open{opacity:1;transform:none}
+.card.static{cursor:default}
+.tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:5px}
+.tags b{font-weight:400;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);border:1px solid var(--line2);padding:3px 6px}
+.stat{margin-top:12px;font-size:10px;color:var(--dim);letter-spacing:.08em}
+.stat u{text-decoration:none;color:var(--acc)}
+
+/* dossier */
+.dossier{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(min-width:720px){.dossier{grid-template-columns:1fr 1fr}}
+.dossier div{background:var(--bg1);padding:15px 16px}
+.dossier b{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.dossier p{margin-top:6px;font-size:12.5px;color:var(--mid)}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px}
+.path s{text-decoration:none;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mid);border:1px solid var(--line2);padding:6px 9px;background:var(--bg1)}
+.path s.on{color:var(--acc);border-color:var(--acc-35);background:var(--acc-07)}
+.path i{font-style:normal;color:var(--dim);font-size:11px}
+.risk{margin-top:16px;padding:13px 14px;border:1px solid var(--line);background:var(--bg1);
+  font-size:12px;color:var(--mid);max-width:70ch}
+.risk em{font-style:normal;color:var(--acc);letter-spacing:.06em}
+
+/* record */
+.trow{display:grid;grid-template-columns:1fr;gap:3px;padding:13px 0;border-bottom:1px solid var(--line)}
+@media(min-width:720px){.trow{grid-template-columns:116px 1fr;gap:20px}}
+.trow .yr{font-size:10.5px;letter-spacing:.16em;color:var(--acc-70);text-transform:uppercase}
+.trow h4{font-size:13.5px;font-weight:600;color:var(--txt)}
+.trow p{font-size:12.5px;color:var(--mid);max-width:70ch}
+.srow{display:grid;grid-template-columns:1fr;gap:5px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
+@media(min-width:720px){.srow{grid-template-columns:40px 190px 1fr 104px;gap:16px}}
+.srow .ix{font-size:9.5px;letter-spacing:.16em;color:var(--dim)}
+.srow .rd{color:var(--line3);font-size:12px;letter-spacing:.04em;word-break:break-all}
+.srow .dsc{font-size:12px;color:var(--mid)}
+.srow .yr{font-size:10px;letter-spacing:.14em;color:var(--dim)}
+.links{margin-top:18px;display:flex;flex-direction:column;gap:0;max-width:520px}
+.links a{display:flex;justify-content:space-between;gap:12px;color:var(--txt);text-decoration:none;
+  padding:10px 0;border-bottom:1px solid var(--line);font-size:12px;transition:.18s var(--e-in)}
+.links a span{color:var(--dim);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase}
+.links a:hover,.links a:focus{color:var(--acc);padding-left:7px}
+.sig{margin-top:26px;font-size:9.5px;color:#454545;letter-spacing:.16em;text-transform:uppercase}
+.hint{margin-top:22px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.hint u{text-decoration:none;color:var(--acc-70)}
+
+/* ================= reduced motion: instant swaps ================= */
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .screen.out-l,.screen.out-r,.screen.out-dive,.screen.out-surf{display:none!important}
+  .pn:before{transform:scaleY(1)}
+  .sweep,.ap,.readout{display:none!important}
+  .card .open{opacity:1;transform:none}
+  .ret{display:none!important}
+  #bg{opacity:.5}
+}
+.stat a{color:inherit;text-decoration:none}
