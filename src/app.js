@@ -261,9 +261,9 @@ function under(sc, ae, d){
     var dy = d > 0 ? b.top - r.bottom : r.top - b.bottom;
     if (dy < -1) return;
     var lap = Math.min(r.right, b.right) - Math.max(r.left, b.left);
-    if (lap <= 0) lap = -Infinity;
-    /* overlaps within 2px count as the same column */
-    if (lap > bestLap + 2 || (lap > bestLap - 2 && dy < gap)) { bestLap = lap; gap = dy; best = t; }
+    /* overlap as a share of the narrower rect, so a full-width row does not outrank the half below; within 1% = same column */
+    lap = lap > 0 ? lap / Math.min(r.width, b.width) : -Infinity;
+    if (lap > bestLap + .01 || (lap > bestLap - .01 && dy < gap)) { bestLap = lap; gap = dy; best = t; }
   });
   return best;
 }

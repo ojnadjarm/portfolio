@@ -31,7 +31,7 @@ only template it; the animation code never reads it.
 |---|---|
 | `identity.json` | Screen 01: kicker, name, hero paragraph, signature, "who" block |
 | `knowledge.json` | Screen 02: lead line, the HOT/WARM/COLD rows, the nine EXPLORED one-liners |
-| `projects.json` | Screen 03: the four cards, the Dark Eye dossier (incl. the signal `path`), the graveyard panel |
+| `projects.json` | Screen 03: the cards (the first, `flagship: true`, is the large one: Moodle, at work), one `dossier` per entry (incl. the signal `path`), the graveyard panel |
 | `record.json` | Screen 04: dated rows |
 | `evidence.json` | The commit count (`count`, `asOf`, `url`), GitHub and LinkedIn URLs |
 | `repos.json` | Names, URLs and one-liners of the linked repositories |

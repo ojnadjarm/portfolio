@@ -259,6 +259,7 @@ blockquote cite{display:block;margin-top:9px;font-style:normal;font-size:10px;
   transition:background .2s ease,transform .24s var(--e-in);
 }
 .card.flag{grid-column:1/-1}
+.card.flag~.card:last-child:nth-child(even){grid-column:1/-1}
 .card:hover,.card:focus{background:var(--bg2)}
 .card .no{font-size:9.5px;letter-spacing:.2em;color:var(--dim)}
 .card h3{font-size:clamp(17px,4vw,24px);font-weight:600;margin:6px 0 9px;letter-spacing:-.01em;color:var(--hi)}

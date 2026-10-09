@@ -3,61 +3,54 @@
   "hintTouch": "Tap a link to open it  ·  Back ◂ to return",
   "entries": [
     {
-      "id": "card-dark-eye",
+      "id": "card-moodle-work",
       "no": "ENTRY 01 — FLAGSHIP · DOSSIER AVAILABLE",
-      "title": "THE DARK EYE",
-      "p": "A voice assistant with a face. A Rust overlay renders an eye on the screen, a Node body routes intent, and a local worker runs speech recognition and answers in any of 53 voices. Audio never leaves the local network. Reachable from a phone.",
+      "title": "MOODLE, AT WORK",
+      "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. I filed the core issues in the tracker from a shared company account and the integrators committed the patches, so there is no public attribution and that part cannot be verified from outside. The public commit figure below can be, and is dated because it moves.",
       "tags": [
-        "Rust",
-        "Node",
-        "Local ASR",
-        "TTS · 53 voices",
-        "Wayland",
-        "systemd"
+        "PHP",
+        "PostgreSQL",
+        "Behat",
+        "Tracker"
       ],
       "flagship": true,
+      "statHtml": "PUBLIC <u>{commits}</u> · CHECK IT: <u>github.com/search — author-name \"Oscar Nadjar\"</u>",
       "open": "▸ Open dossier — Enter",
       "dossier": {
-        "id": "s-dark-eye",
+        "id": "s-moodle-work",
         "no": "[03·01]",
-        "sub": "dossier · flagship",
-        "lead": "A local-first voice assistant with no chat window: an animated eye rendered on the screen, a service on the machine, and speech recognition and synthesis that run locally.",
-        "repo": "the-dark-eye",
+        "sub": "dossier · flagship · no public repository",
+        "lead": "Institutional Moodle work: plugins, themes, integrations, upgrades and patches to Moodle core. There is no public repository for this entry.",
         "cells": [
           {
-            "b": "Eye",
-            "p": "A Rust overlay drawing an animated eye on top of the screen. It is the whole interface: the eye animation carries the state while the body processes the request."
+            "b": "What can be verified",
+            "p": "The public commit figure: {commits}. It is what the linked GitHub search returns, and it is dated because it moves."
           },
           {
-            "b": "Body",
-            "p": "A Node service that routes what was heard to the right agent, keeps state and holds the channels open. It runs as a systemd unit."
+            "b": "What cannot",
+            "p": "The core issues were filed in the Moodle tracker from a shared company account and the patches were committed by the integrators, so there is no public attribution. That part cannot be verified from outside, and I list no numbers for it."
           },
           {
-            "b": "Ear & voice",
-            "p": "A local worker running speech recognition on the machine, and synthesis with 53 selectable voices. No cloud round trip."
-          },
-          {
-            "b": "Reach",
-            "p": "A page on the private network, so the same assistant is reachable from a phone off-site."
+            "b": "Scope",
+            "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. PHP, PostgreSQL, Behat and the tracker workflow."
           }
         ],
         "links": [
           {
-            "k": "REPOSITORY:",
-            "label": "github.com/ojnadjarm/the-dark-eye",
-            "url": "https://github.com/ojnadjarm/the-dark-eye"
+            "k": "PUBLIC COMMITS — GITHUB SEARCH:",
+            "label": "author-name \"Oscar Nadjar\"",
+            "url": "{commitsUrl}"
           }
         ],
         "path": [
-          "VOICE",
-          "LOCAL ASR",
-          "BODY",
-          "AGENT",
-          "TTS",
-          "EYE + SPEAKER"
+          "TRACKER ISSUE",
+          "PATCH",
+          "PEER REVIEW",
+          "INTEGRATION",
+          "RELEASE"
         ],
         "riskEm": "Honest calibration —",
-        "risk": "the model was not the hard part. The work was latency, a Wayland overlay that stays on top of the screen, and keeping the services running unattended under systemd.",
+        "risk": "this is most of the working record and the least verifiable part of the page. It is stated without numbers on purpose.",
         "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
       }
     },
@@ -188,59 +181,149 @@
       }
     },
     {
-      "id": "card-moodle-work",
+      "id": "card-ubuntu-tools",
       "no": "ENTRY 04",
-      "title": "MOODLE, AT WORK",
-      "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. I filed the core issues in the tracker from a shared company account and the integrators committed the patches, so there is no public attribution and that part cannot be verified from outside. The public commit figure below can be, and is dated because it moves.",
+      "title": "UBUNTU TOOLS",
+      "p": "The harness that runs my own Ubuntu machine: machine-control CLIs and a fleet of headless agents on systemd user timers. Every change through the pc CLI is a dry run until --apply, then ledgered with its undo; a kill switch stops the fleet, and every tool call lands in an audit log.",
+      "repo": "ubuntu-tools",
       "tags": [
-        "PHP",
-        "PostgreSQL",
-        "Behat",
-        "Tracker"
+        "Bash",
+        "Python",
+        "systemd",
+        "jq",
+        "Agent CLIs"
       ],
-      "statHtml": "PUBLIC <u>{commits}</u> · CHECK IT: <u>github.com/search — author-name \"Oscar Nadjar\"</u>",
       "open": "▸ Open dossier — Enter",
       "dossier": {
-        "id": "s-moodle-work",
+        "id": "s-ubuntu-tools",
         "no": "[03·04]",
-        "sub": "dossier · no public repository",
-        "lead": "Institutional Moodle work: plugins, themes, integrations, upgrades and patches to Moodle core. There is no public repository for this entry.",
+        "sub": "dossier · public repository",
+        "lead": "Machine-control CLIs and an agent fleet on one Ubuntu box: a pc CLI that reads and changes the system, headless agents scheduled by systemd user timers, and one shared contract every agent reads. Machine-specific values live in an untracked config file.",
+        "repo": "ubuntu-tools",
         "cells": [
           {
-            "b": "What can be verified",
-            "p": "The public commit figure: {commits}. It is what the linked GitHub search returns, and it is dated because it moves."
+            "b": "pc CLI",
+            "p": "A mutating verb is a dry run by default and prints what it would change, before and after. With --apply the change is written to a ledger with its inverse, read back and marked verified or not, and the last line names the rollback: pc undo <id>."
           },
           {
-            "b": "What cannot",
-            "p": "The core issues were filed in the Moodle tracker from a shared company account and the patches were committed by the integrators, so there is no public attribution. That part cannot be verified from outside, and I list no numbers for it."
+            "b": "Agents on timers",
+            "p": "Each persistent agent is a directory with a brief and an env file, run headless by a templated systemd user service on its own timer, with a memory cap and a time limit. Adapters wire the same runner to Claude Code, opencode or a generic command."
           },
           {
-            "b": "Scope",
-            "p": "Plugins, themes, integrations and upgrades on institutional installs, plus work on Moodle core since 2023. PHP, PostgreSQL, Behat and the tracker workflow."
+            "b": "Kill switch",
+            "p": "One command stops every agent unit, every fleet timer and every background run, by the pid each run writes, then sends one push. Timers are stopped, not disabled, so a second command brings the roster back."
+          },
+          {
+            "b": "Audit & guards",
+            "p": "An audit hook writes one JSON line per tool call, with secrets redacted. Headless agents get guard shims first on PATH that refuse git commit and push, reboots outside a maintenance window and stopping fleet units, and log each refusal."
           }
         ],
         "links": [
           {
-            "k": "PUBLIC COMMITS — GITHUB SEARCH:",
-            "label": "author-name \"Oscar Nadjar\"",
-            "url": "{commitsUrl}"
+            "k": "REPOSITORY:",
+            "label": "github.com/ojnadjarm/ubuntu-tools",
+            "url": "https://github.com/ojnadjarm/ubuntu-tools"
+          },
+          {
+            "k": "DRY RUN, LEDGER, READ-BACK:",
+            "label": "bin/pclib.sh",
+            "url": "https://github.com/ojnadjarm/ubuntu-tools/blob/master/bin/pclib.sh"
+          },
+          {
+            "k": "AGENT UNIT:",
+            "label": "units/agent@.service",
+            "url": "https://github.com/ojnadjarm/ubuntu-tools/blob/master/units/agent@.service"
+          },
+          {
+            "k": "KILL SWITCH:",
+            "label": "bin/agents-stop",
+            "url": "https://github.com/ojnadjarm/ubuntu-tools/blob/master/bin/agents-stop"
+          },
+          {
+            "k": "AUDIT HOOK:",
+            "label": "hooks/audit-log.py",
+            "url": "https://github.com/ojnadjarm/ubuntu-tools/blob/master/hooks/audit-log.py"
+          },
+          {
+            "k": "REFUSAL GUARDS:",
+            "label": "bin/guards/",
+            "url": "https://github.com/ojnadjarm/ubuntu-tools/tree/master/bin/guards"
           }
         ],
         "path": [
-          "TRACKER ISSUE",
-          "PATCH",
-          "PEER REVIEW",
-          "INTEGRATION",
-          "RELEASE"
+          "TIMER",
+          "AGENT RUN",
+          "ADAPTER",
+          "AGENT",
+          "PC --APPLY",
+          "LEDGER"
         ],
         "riskEm": "Honest calibration —",
-        "risk": "this is most of the working record and the least verifiable part of the page. It is stated without numbers on purpose.",
+        "risk": "it is shell, Python and systemd units for one machine, not a product. Its value is that unattended agents run with a dry run, an undo, an audit trail and a kill switch in front of them.",
+        "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
+    },
+    {
+      "id": "card-dark-eye",
+      "no": "ENTRY 05",
+      "title": "THE DARK EYE",
+      "p": "A voice assistant with a face. A Rust overlay renders an eye on the screen, a Node body routes intent, and a local worker runs speech recognition and answers in any of 53 voices. Audio never leaves the local network. Reachable from a phone.",
+      "tags": [
+        "Rust",
+        "Node",
+        "Local ASR",
+        "TTS · 53 voices",
+        "Wayland",
+        "systemd"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-dark-eye",
+        "no": "[03·05]",
+        "sub": "dossier · public repository",
+        "lead": "A local-first voice assistant with no chat window: an animated eye rendered on the screen, a service on the machine, and speech recognition and synthesis that run locally.",
+        "repo": "the-dark-eye",
+        "cells": [
+          {
+            "b": "Eye",
+            "p": "A Rust overlay drawing an animated eye on top of the screen. It is the whole interface: the eye animation carries the state while the body processes the request."
+          },
+          {
+            "b": "Body",
+            "p": "A Node service that routes what was heard to the right agent, keeps state and holds the channels open. It runs as a systemd unit."
+          },
+          {
+            "b": "Ear & voice",
+            "p": "A local worker running speech recognition on the machine, and synthesis with 53 selectable voices. No cloud round trip."
+          },
+          {
+            "b": "Reach",
+            "p": "A page on the private network, so the same assistant is reachable from a phone off-site."
+          }
+        ],
+        "links": [
+          {
+            "k": "REPOSITORY:",
+            "label": "github.com/ojnadjarm/the-dark-eye",
+            "url": "https://github.com/ojnadjarm/the-dark-eye"
+          }
+        ],
+        "path": [
+          "VOICE",
+          "LOCAL ASR",
+          "BODY",
+          "AGENT",
+          "TTS",
+          "EYE + SPEAKER"
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "the model was not the hard part. The work was latency, a Wayland overlay that stays on top of the screen, and keeping the services running unattended under systemd.",
         "hintHtml": "Repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
       }
     },
     {
       "id": "card-small-model",
-      "no": "ENTRY 05",
+      "no": "ENTRY 06",
       "title": "SMALL-MODEL RESEARCH",
       "p": "Distillation and pruning experiments run on a consumer GPU. The code and the measurements are not public, so there is nothing here to check; the entry is listed for completeness, without figures.",
       "tags": [
@@ -252,7 +335,7 @@
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-small-model",
-        "no": "[03·05]",
+        "no": "[03·06]",
         "sub": "dossier · private",
         "lead": "Distillation and pruning experiments on a consumer GPU. The code and the measurements are private, so this dossier describes the setup and claims no result.",
         "cells": [
@@ -285,7 +368,7 @@
   "graveyard": [
     {
       "id": "card-agenticnn",
-      "no": "ENTRY 06 — CLOSED",
+      "no": "ENTRY 07 — CLOSED",
       "title": "AGENTICNN",
       "p": "A multi-role LLM agent pipeline — project manager, specialists, integrator, programmer, QA, toolsmith — that I pointed at an ARC-AGI puzzle: the agents write numpy code over a small hand-built DSL. The planning stages completed every time; the code-generation stage never passed verification. I stopped there. The run log is public, so the failures can be counted. Public repository — github.com/ojnadjarm/agenticneturalnetwork.",
       "tags": [
@@ -297,7 +380,7 @@
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-agenticnn",
-        "no": "[03·06]",
+        "no": "[03·07]",
         "sub": "dossier · closed · public",
         "lead": "A multi-role LLM agent pipeline pointed at an ARC-AGI puzzle. Abandoned in August 2025 after the code-generation stage never passed verification; the repository stays public as the record.",
         "repo": "agenticneturalnetwork",
@@ -330,7 +413,7 @@
     },
     {
       "id": "card-navi-agent",
-      "no": "ENTRY 07 — CLOSED",
+      "no": "ENTRY 08 — CLOSED",
       "title": "NAVI-AGENT",
       "p": "An Electron desktop notifier for AI agents: a floating Navi fairy that hosts an MCP server with one tool, notify(kind, message, title?), and rings, changes colour and shows a speech bubble when an agent calls it. Windows-only. I finished it as a small tool and left it there. Public repository — github.com/ojnadjarm/navi-agent.",
       "tags": [
@@ -343,7 +426,7 @@
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-navi-agent",
-        "no": "[03·07]",
+        "no": "[03·08]",
         "sub": "dossier · closed · public",
         "lead": "An Electron desktop notifier for AI agents: a floating fairy that hosts an MCP server with one tool. Finished as a small tool in July 2026 and left there; the repository is closed.",
         "repo": "navi-agent",
