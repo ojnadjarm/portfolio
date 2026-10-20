@@ -99,6 +99,11 @@
             "url": "https://github.com/ojnadjarm/local_aicharts"
           },
           {
+            "k": "SEE IT RUN:",
+            "label": "Watch the demo",
+            "exhibit": "aicharts"
+          },
+          {
             "k": "THE WHOLE FEATURE, DOCUMENTED:",
             "label": "README.md",
             "url": "https://github.com/ojnadjarm/local_aicharts/blob/main/README.md"
@@ -306,6 +311,11 @@
             "k": "REPOSITORY:",
             "label": "github.com/ojnadjarm/the-dark-eye",
             "url": "https://github.com/ojnadjarm/the-dark-eye"
+          },
+          {
+            "k": "SEE IT RUN:",
+            "label": "Open the browser page demo",
+            "exhibit": "dark-eye"
           }
         ],
         "path": [
@@ -322,8 +332,90 @@
       }
     },
     {
-      "id": "card-small-model",
+      "id": "card-ai-avatars",
       "no": "ENTRY 06",
+      "title": "AI AVATARS",
+      "p": "A Godot 4 game that gives LLM agents a body in a 2D top-down world. Each agent keeps an emotional state, wanders with its own pathfinding, talks to other agents over an in-process Google A2A router, and acts on the world through an MCP server the game hosts. The agents themselves live in external gateways (Hermes, OpenClaw), so a conversation persists outside the game.",
+      "repo": "ai-avatars",
+      "tags": [
+        "Godot 4",
+        "GDScript",
+        "A2A",
+        "MCP",
+        "LLM gateways"
+      ],
+      "open": "▸ Open dossier — Enter",
+      "dossier": {
+        "id": "s-ai-avatars",
+        "no": "[03·06]",
+        "sub": "dossier · public repository",
+        "lead": "A Godot 4 framework that puts real LLM agents into a 2D top-down world: an avatar, an emotional state, a world to wander and each other to talk to. The tour below is recorded from the game.",
+        "repo": "ai-avatars",
+        "cells": [
+          {
+            "b": "Agents",
+            "p": "Each agent is a gateway session (Hermes, OpenClaw or any OpenAI-compatible endpoint). The game wraps every prompt in XML: narration in, speech out, and anything outside the speech tag stays private inner monologue."
+          },
+          {
+            "b": "Emotion",
+            "p": "An event-driven emotion engine with a causal log. Every observation, encounter and conversation moves the state, and the state goes back into the next prompt as prose."
+          },
+          {
+            "b": "A2A & MCP",
+            "p": "Agents meet and hold multi-turn conversations through an in-process router with the Google A2A JSON-RPC shapes. The game also hosts an MCP server, so a gateway can act on the world through tool calls."
+          },
+          {
+            "b": "Movement",
+            "p": "Theta* grid pathfinding, avoidance between agents and a wander brain that picks where to go from interest, novelty and mood, and avoids the spots it just visited."
+          }
+        ],
+        "links": [
+          {
+            "k": "SEE IT RUN:",
+            "label": "Watch the tour",
+            "exhibit": "ai-avatars"
+          },
+          {
+            "k": "REPOSITORY:",
+            "label": "github.com/ojnadjarm/ai-avatars",
+            "url": "https://github.com/ojnadjarm/ai-avatars"
+          },
+          {
+            "k": "EMOTION ENGINE:",
+            "label": "scripts/emotion_engine.gd",
+            "url": "https://github.com/ojnadjarm/ai-avatars/blob/master/godot/agent-world/scripts/emotion_engine.gd"
+          },
+          {
+            "k": "A2A ROUTER:",
+            "label": "scripts/a2a_router.gd",
+            "url": "https://github.com/ojnadjarm/ai-avatars/blob/master/godot/agent-world/scripts/a2a_router.gd"
+          },
+          {
+            "k": "MCP SERVER:",
+            "label": "scripts/mcp_server.gd",
+            "url": "https://github.com/ojnadjarm/ai-avatars/blob/master/godot/agent-world/scripts/mcp_server.gd"
+          },
+          {
+            "k": "WANDER BRAIN:",
+            "label": "scripts/agent_wander.gd",
+            "url": "https://github.com/ojnadjarm/ai-avatars/blob/master/godot/agent-world/scripts/agent_wander.gd"
+          }
+        ],
+        "path": [
+          "WORLD EVENT",
+          "PROMPT",
+          "GATEWAY",
+          "SPEECH + EMOTION",
+          "AVATAR"
+        ],
+        "riskEm": "Honest calibration —",
+        "risk": "the agents are only as good as the gateways behind them. The tour shows the world, the movement and the art; the conversations need a local gateway running.",
+        "hintHtml": "Tour or repository: <u>Enter</u> on the link. Return: <u>Esc</u>, <u>←</u>, or the BACK control."
+      }
+    },
+    {
+      "id": "card-small-model",
+      "no": "ENTRY 07",
       "title": "SMALL-MODEL RESEARCH",
       "p": "Distillation and pruning experiments run on a consumer GPU. The code and the measurements are not public, so there is nothing here to check; the entry is listed for completeness, without figures.",
       "tags": [
@@ -335,7 +427,7 @@
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-small-model",
-        "no": "[03·06]",
+        "no": "[03·07]",
         "sub": "dossier · private",
         "lead": "Distillation and pruning experiments on a consumer GPU. The code and the measurements are private, so this dossier describes the setup and claims no result.",
         "cells": [
@@ -368,7 +460,7 @@
   "graveyard": [
     {
       "id": "card-agenticnn",
-      "no": "ENTRY 07 — CLOSED",
+      "no": "ENTRY 08 — CLOSED",
       "title": "AGENTICNN",
       "p": "A multi-role LLM agent pipeline — project manager, specialists, integrator, programmer, QA, toolsmith — that I pointed at an ARC-AGI puzzle: the agents write numpy code over a small hand-built DSL. The planning stages completed every time; the code-generation stage never passed verification. I stopped there. The run log is public, so the failures can be counted. Public repository — github.com/ojnadjarm/agenticneturalnetwork.",
       "tags": [
@@ -380,7 +472,7 @@
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-agenticnn",
-        "no": "[03·07]",
+        "no": "[03·08]",
         "sub": "dossier · closed · public",
         "lead": "A multi-role LLM agent pipeline pointed at an ARC-AGI puzzle. Abandoned in August 2025 after the code-generation stage never passed verification; the repository stays public as the record.",
         "repo": "agenticneturalnetwork",
@@ -413,7 +505,7 @@
     },
     {
       "id": "card-navi-agent",
-      "no": "ENTRY 08 — CLOSED",
+      "no": "ENTRY 09 — CLOSED",
       "title": "NAVI-AGENT",
       "p": "An Electron desktop notifier for AI agents: a floating Navi fairy that hosts an MCP server with one tool, notify(kind, message, title?), and rings, changes colour and shows a speech bubble when an agent calls it. Windows-only. I finished it as a small tool and left it there. Public repository — github.com/ojnadjarm/navi-agent.",
       "tags": [
@@ -426,7 +518,7 @@
       "open": "▸ Open dossier — Enter",
       "dossier": {
         "id": "s-navi-agent",
-        "no": "[03·08]",
+        "no": "[03·09]",
         "sub": "dossier · closed · public",
         "lead": "An Electron desktop notifier for AI agents: a floating fairy that hosts an MCP server with one tool. Finished as a small tool in July 2026 and left there; the repository is closed.",
         "repo": "navi-agent",
@@ -450,6 +542,11 @@
             "k": "TOOL TABLE:",
             "label": "README.md",
             "url": "https://github.com/ojnadjarm/navi-agent/blob/master/README.md"
+          },
+          {
+            "k": "SEE IT RUN:",
+            "label": "Open the fairy demo",
+            "exhibit": "navi-agent"
           }
         ],
         "riskEm": "Honest calibration —",

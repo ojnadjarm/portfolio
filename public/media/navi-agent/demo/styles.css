@@ -1,0 +1,208 @@
+@property --navi-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #9ecfff;
+}
+
+html {
+  --navi-color: #9ecfff;
+  transition: --navi-color 300ms ease;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  user-select: none;
+  font-family: "Segoe UI", sans-serif;
+}
+
+#drift {
+  position: absolute;
+  right: 44px;
+  bottom: 56px;
+  width: 120px;
+  height: 120px;
+  z-index: 2;
+  transition: transform 5s ease-in-out;
+}
+
+#fairy {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  -webkit-app-region: drag;
+  animation: bob 2.6s ease-in-out infinite;
+}
+
+#halo {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 190px;
+  height: 190px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--navi-color) 36%, transparent) 0%,
+    color-mix(in srgb, var(--navi-color) 14%, transparent) 42%,
+    transparent 66%
+  );
+  filter: blur(7px);
+  animation: breathe 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+#navi {
+  position: relative;
+  overflow: visible;
+  filter: drop-shadow(0 0 5px var(--navi-color))
+    drop-shadow(0 0 14px var(--navi-color));
+}
+
+.core-mid {
+  stop-color: var(--navi-color);
+}
+
+.core-edge {
+  stop-color: var(--navi-color);
+}
+
+.body-inner {
+  fill: #ffffff;
+}
+
+.wing {
+  fill: rgba(255, 255, 255, 0.78);
+  transform-box: fill-box;
+  animation: flap 0.4s ease-in-out infinite alternate;
+}
+
+.wing.left {
+  transform-origin: right center;
+}
+
+.wing.right {
+  transform-origin: left center;
+}
+
+.wing.back {
+  opacity: 0.55;
+  animation-delay: 0.08s;
+}
+
+#fairy.alert-urgent .wing,
+#fairy.alert-warning .wing,
+#fairy.alert-success .wing {
+  animation-duration: 0.16s;
+}
+
+#fairy.alert-urgent #navi {
+  animation: pulse 0.45s ease-in-out infinite;
+}
+
+#bubble {
+  position: absolute;
+  right: 172px;
+  bottom: 104px;
+  max-width: 185px;
+  z-index: 3;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(20, 24, 38, 0.92);
+  border: 1px solid var(--navi-color);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--navi-color) 60%, transparent);
+  color: #eef2ff;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 250ms ease, transform 250ms ease;
+  -webkit-app-region: no-drag;
+}
+
+#bubble.hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+#bubble::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  bottom: 16px;
+  border-width: 6px 0 6px 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent rgba(20, 24, 38, 0.92);
+}
+
+#bubble-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+#bubble-message {
+  user-select: text;
+  word-break: break-word;
+}
+
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(circle, #ffffff 0%, var(--navi-color) 70%);
+  animation: sparkfall 1.2s ease-out forwards;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes flap {
+  from {
+    transform: scaleX(1) rotate(0deg);
+  }
+  to {
+    transform: scaleX(0.55) rotate(6deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.14);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkfall {
+  from {
+    opacity: 0.9;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(26px) scale(0.2);
+  }
+}

@@ -300,10 +300,11 @@ blockquote cite{display:block;margin-top:9px;font-style:normal;font-size:10px;
 .srow .dsc{font-size:12px;color:var(--mid)}
 .srow .yr{font-size:10px;letter-spacing:.14em;color:var(--dim)}
 .links{margin-top:18px;display:flex;flex-direction:column;gap:0;max-width:520px}
-.links a{display:flex;justify-content:space-between;gap:12px;color:var(--txt);text-decoration:none;
-  padding:10px 0;border-bottom:1px solid var(--line);font-size:12px;transition:.18s var(--e-in)}
-.links a span{color:var(--dim);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase}
-.links a:hover,.links a:focus{color:var(--acc);padding-left:7px}
+.links a,.links button{display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;color:var(--txt);
+  text-decoration:none;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;
+  font:inherit;font-size:12px;padding:10px 0;cursor:pointer;transition:.18s var(--e-in)}
+.links a span,.links button span{color:var(--dim);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase}
+.links a:hover,.links a:focus,.links button:hover,.links button:focus{color:var(--acc);padding-left:7px}
 .sig{margin-top:26px;font-size:9.5px;color:#454545;letter-spacing:.16em;text-transform:uppercase}
 .hint{margin-top:22px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 .hint u{text-decoration:none;color:var(--acc-70)}

@@ -1,0 +1,2 @@
+/* Demo-only: no picture-in-picture window inside an iframe. */
+#pip { display: none !important; }

@@ -1,0 +1,18 @@
+/* ================= gallery sub-site: a plain scrolling page on the main site's tokens ================= */
+body.gal{height:auto;min-height:100svh;overflow:auto}
+.gal .rail a{color:inherit;text-decoration:none}
+.gal .rail a:hover,.gal .rail a:focus{color:var(--acc)}
+.gal-main{width:min(1600px,100%);margin:0 auto;padding:calc(var(--rail) + 28px) clamp(14px,4vw,48px) 48px}
+.gal-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.gal-tile{display:flex;flex-direction:column;gap:4px;padding:0 0 12px;border:1px solid var(--line2);
+  background:var(--bg1);color:var(--txt);text-decoration:none;transition:border-color .18s ease}
+.gal-tile img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:8px}
+.gal-tile .no,.gal-tile b,.gal-tile .sub{padding:0 12px}
+.gal-tile .no{font-size:10px;letter-spacing:.24em;color:var(--acc)}
+.gal-tile b{font-size:15px;color:var(--hi);font-weight:600}
+.gal-tile .sub{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.gal-tile:hover,.gal-tile:focus{border-color:var(--acc);outline:0}
+.gal-back{margin:0 0 18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.gal-grid + .gal-back{margin:28px 0 0}
+.gal-back a{color:var(--mid);text-decoration:none}
+.gal-back a:hover,.gal-back a:focus{color:var(--acc)}

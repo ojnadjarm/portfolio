@@ -1,0 +1,96 @@
+{
+  "title": "GALLERY",
+  "sub": "visual work · not linked from the main page",
+  "lead": "Things I built that are better seen than described. Each exhibit runs or plays in the browser and links to its source.",
+  "back": "◂ Portfolio",
+  "index": "◂ Gallery",
+  "start": "▸ Load and start",
+  "newTab": "Open in its own tab",
+  "close": "Close — Esc",
+  "exhibits": [
+    {
+      "id": "ai-avatars",
+      "title": "AI AVATARS",
+      "sub": "tour video · stills · Godot 4",
+      "lead": "A Godot 4 game where LLM agents get a body in a 2D top-down world. The tour is recorded from the game itself and walks both worlds, Magic Forest by day and Darkwood by night; the stills come from the same recording run.",
+      "media": [
+        {
+          "kind": "video",
+          "src": "media/ai-avatars/tour.mp4",
+          "poster": "media/ai-avatars/tour-poster.webp",
+          "label": "Scripted tour of both worlds, recorded from the game, 99 s, no sound."
+        },
+        {
+          "kind": "stills",
+          "items": [
+            { "src": "media/ai-avatars/stills/title.webp", "alt": "The title screen: a moonlit castle above a lake, the world menu on the left." },
+            { "src": "media/ai-avatars/stills/mf-overview.webp", "alt": "Magic Forest from above: paths, a lake and ten named zones." },
+            { "src": "media/ai-avatars/stills/mf-mirror_lake.webp", "alt": "Mirror Lake with its bridge in daylight." },
+            { "src": "media/ai-avatars/stills/mf-dialogue.webp", "alt": "The player talking to an agent; the reply opens in a dialogue panel." },
+            { "src": "media/ai-avatars/stills/dw-lantern_road.webp", "alt": "Darkwood at night: a lantern-lit road." },
+            { "src": "media/ai-avatars/stills/dw-blackwater_pool.webp", "alt": "Darkwood: the Blackwater pool under moonlight." }
+          ]
+        }
+      ],
+      "links": [
+        { "k": "REPOSITORY:", "label": "github.com/ojnadjarm/ai-avatars", "url": "https://github.com/ojnadjarm/ai-avatars" },
+        { "k": "EMOTION ENGINE:", "label": "scripts/emotion_engine.gd", "url": "https://github.com/ojnadjarm/ai-avatars/blob/master/godot/agent-world/scripts/emotion_engine.gd" },
+        { "k": "AGENT-TO-AGENT (A2A):", "label": "scripts/a2a_router.gd", "url": "https://github.com/ojnadjarm/ai-avatars/blob/master/godot/agent-world/scripts/a2a_router.gd" }
+      ]
+    },
+    {
+      "id": "aicharts",
+      "title": "AI CHARTS",
+      "sub": "demo video · Moodle plugin",
+      "lead": "The local_aicharts wizard in a Moodle site: a chart is defined step by step, its query previewed, scheduled and saved to the dashboard.",
+      "media": [
+        {
+          "kind": "video",
+          "src": "media/aicharts/demo.mp4",
+          "poster": "media/aicharts/poster.webp",
+          "label": "Demo of the plugin, 2 min 38 s, with narration. Starts muted."
+        }
+      ],
+      "links": [
+        { "k": "REPOSITORY:", "label": "github.com/ojnadjarm/local_aicharts", "url": "https://github.com/ojnadjarm/local_aicharts" }
+      ]
+    },
+    {
+      "id": "dark-eye",
+      "title": "THE DARK EYE",
+      "sub": "browser page · scripted demo",
+      "lead": "The Dark Eye's browser page, running here on a script: the eye moves through listening, thinking and speaking while the transcript fills in. The real page talks to the assistant on my machine; this copy has no backend, no microphone and no sound.",
+      "media": [
+        {
+          "kind": "embed",
+          "src": "media/dark-eye/demo/index.html",
+          "poster": "media/dark-eye/poster.webp",
+          "alt": "The Dark Eye page: a dotted eye in the centre, three agent creatures orbiting it, the transcript on the right.",
+          "note": "Scripted, about 70 s per loop. Keys 1–3 switch channels."
+        }
+      ],
+      "links": [
+        { "k": "REPOSITORY:", "label": "github.com/ojnadjarm/the-dark-eye", "url": "https://github.com/ojnadjarm/the-dark-eye" }
+      ]
+    },
+    {
+      "id": "navi-agent",
+      "title": "NAVI-AGENT",
+      "sub": "fairy overlay · scripted demo",
+      "lead": "NaviAgent's fairy, running here on a script: the repository's own renderer, styles and markup, fed fake notify() calls instead of an MCP client. It changes colour by kind, shows the message in a bubble and returns to idle. No sound in this copy.",
+      "media": [
+        {
+          "kind": "embed",
+          "src": "media/navi-agent/demo/index.html",
+          "poster": "media/navi-agent/poster.webp",
+          "alt": "The Navi fairy glowing green beside a speech bubble that reads Task finished.",
+          "note": "Scripted: a new notification about every 9 s."
+        }
+      ],
+      "links": [
+        { "k": "REPOSITORY:", "label": "github.com/ojnadjarm/navi-agent", "url": "https://github.com/ojnadjarm/navi-agent" },
+        { "k": "RENDERER:", "label": "src/renderer/renderer.ts", "url": "https://github.com/ojnadjarm/navi-agent/blob/master/src/renderer/renderer.ts" }
+      ]
+    }
+  ]
+}

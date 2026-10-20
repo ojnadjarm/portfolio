@@ -1,0 +1,113 @@
+/* Demo layout on top of the app's styles.css: centred, scaled stage on a dark page. */
+:root {
+  --s: 1;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background: radial-gradient(circle at 50% 50%, #0e1118 0%, #070707 62%) #070707;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+#stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 560px;
+  height: 300px;
+  transform: translate(-50%, -50%) scale(var(--s));
+}
+
+#drift {
+  right: auto;
+  bottom: auto;
+  left: calc(50% - 60px);
+  top: calc(50% - 60px);
+}
+
+#bubble {
+  right: calc(50% + 68px);
+  bottom: calc(50% - 12px);
+}
+
+.spark {
+  width: calc(6px * var(--s));
+  height: calc(6px * var(--s));
+}
+
+@media (max-width: 599px) {
+  #stage {
+    width: 340px;
+    height: 340px;
+  }
+
+  #drift {
+    top: calc(50% + 20px);
+  }
+
+  #bubble {
+    left: 0;
+    right: 0;
+    bottom: calc(50% - 4px);
+    width: fit-content;
+    max-width: 240px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #bubble::after {
+    right: auto;
+    left: calc(50% - 6px);
+    bottom: -8px;
+    border-width: 8px 6px 0 6px;
+    border-color: rgba(20, 24, 38, 0.92) transparent transparent transparent;
+  }
+}
+
+@media (min-width: 1100px) and (min-height: 560px) {
+  :root {
+    --s: 1.5;
+  }
+}
+
+@media (min-width: 1700px) and (min-height: 800px) {
+  :root {
+    --s: 2;
+  }
+}
+
+@media (min-width: 2300px) and (min-height: 1100px) {
+  :root {
+    --s: 2.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  #bubble {
+    transition: none;
+  }
+
+  #fairy,
+  #halo,
+  .wing,
+  #fairy.alert-urgent #navi {
+    animation: none !important;
+  }
+
+  #drift {
+    transition: none;
+    transform: none !important;
+  }
+
+  .spark {
+    visibility: hidden;
+  }
+}

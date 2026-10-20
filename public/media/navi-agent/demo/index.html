@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self'; script-src 'self'"
+    />
+    <title>NaviAgent fairy overlay demo</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="demo.css" />
+  </head>
+  <body>
+    <div id="stage">
+    <div id="bubble" class="hidden" role="status" aria-live="polite">
+      <div id="bubble-title"></div>
+      <div id="bubble-message"></div>
+    </div>
+    <div id="drift">
+    <div id="fairy">
+      <div id="halo"></div>
+      <svg id="navi" viewBox="0 0 120 120" width="120" height="120" aria-label="Navi, the fairy">
+        <defs>
+          <radialGradient id="core">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="45%" class="core-mid" stop-opacity="0.95" />
+            <stop offset="100%" class="core-edge" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <ellipse class="wing left back" cx="38" cy="50" rx="21" ry="8" />
+        <ellipse class="wing left front" cx="37" cy="62" rx="18" ry="7" />
+        <ellipse class="wing right back" cx="82" cy="50" rx="21" ry="8" />
+        <ellipse class="wing right front" cx="83" cy="62" rx="18" ry="7" />
+        <circle class="body" cx="60" cy="58" r="26" fill="url(#core)" />
+        <circle class="body-inner" cx="60" cy="58" r="9" />
+      </svg>
+    </div>
+    </div>
+    </div>
+    <script src="demo.js"></script>
+    <script src="renderer.js"></script>
+  </body>
+</html>

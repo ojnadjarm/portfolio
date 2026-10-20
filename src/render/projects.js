@@ -49,6 +49,7 @@ function dossier(e, touchHint) {
     s.cells.map(function (c) { return '<div><b>' + esc(c.b) + '</b><p>' + esc(fill(c.p)) + '</p></div>'; }).join('') +
   '</div>' +
   (s.links ? '<div class="links">' + s.links.map(function (l) {
+    if (l.exhibit) return '<button class="tgt" data-exhibit="' + esc(l.exhibit) + '">' + esc(l.label) + '<span>' + esc(l.k) + '</span></button>';
     return '<a class="tgt" href="' + esc(fill(l.url)) + '" target="_blank" rel="noopener">' + esc(l.label) + '<span>' + esc(l.k) + '</span></a>';
   }).join('') + '</div>' : '') +
   '</div>' +

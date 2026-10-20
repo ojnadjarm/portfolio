@@ -279,6 +279,8 @@ dock.addEventListener('click', function(e){
   if (b === backBtn) surface(); else goto(b.dataset.go);
 });
 stage.addEventListener('click', function(e){
+  var x = e.target.closest('[data-exhibit]');
+  if (x) { import('./modal.js').then(function(m){ m.open(x.dataset.exhibit, x); }); return; }
   var c = e.target.closest('[data-open]');
   if (c) dive(c.dataset.open, c);
 });
@@ -302,7 +304,7 @@ function scrollScreen(sc, dy){ sc.scrollBy({top: dy, behavior: scrollBehavior()}
 function scrollTop(sc, y){ sc.scrollTo({top: y, behavior: scrollBehavior()}); }
 
 document.addEventListener('keydown', function(e){
-  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.metaKey || e.ctrlKey || e.altKey || document.querySelector('dialog[open]')) return;
   var k = e.key, sc = document.getElementById(current), ae = document.activeElement;
   var onTgt = !!(ae && ae.classList && ae.classList.contains('tgt') && sc.contains(ae));
 
